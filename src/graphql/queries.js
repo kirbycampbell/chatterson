@@ -24,6 +24,9 @@ export const getPost = `query GetPost($id: ID!) {
       contents {
         nextToken
       }
+      users {
+        nextToken
+      }
     }
   }
 }
@@ -65,6 +68,15 @@ export const getConversation = `query GetConversation($id: ID!) {
       }
       nextToken
     }
+    users {
+      items {
+        id
+        name
+        password
+        createdAt
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -78,6 +90,9 @@ export const listConversations = `query ListConversations(
       id
       name
       contents {
+        nextToken
+      }
+      users {
         nextToken
       }
     }

@@ -10,6 +10,7 @@ type Conversation @model {
   id: ID!
   name: String
   contents: [Post] @connection
+  users: [User] @connection
 }
 
 type User @model {

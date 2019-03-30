@@ -19,26 +19,6 @@ export const ChatBox = props => {
     }
   }, [props.selectedConvo]);
 
-  const createConvo = async () => {
-    let result = await API.graphql(
-      graphqlOperation(mutations.createConversation, { input: {} })
-    );
-    setConvoId(result.data.createConversation.id);
-    console.log(result.data.createConversation.id);
-  };
-
-  const createConvo2 = async () => {
-    let updatedConvo = await API.graphql(
-      graphqlOperation(mutations.createConversation, {
-        input: {
-          //users: [{ id: props.selectedConvo }, { id: props.user.id }],
-          contents: []
-        }
-      })
-    );
-    console.log(updatedConvo);
-  };
-
   // // Send assigns Msg state and sends it to DB....
   // const send = async () => {
   //   const postDeets = {
@@ -84,10 +64,61 @@ export const ChatBox = props => {
     console.log(id);
   };
 
+  // This Creates a blank new Conversation Model
+  const createConvo = async () => {
+    let result = await API.graphql(
+      graphqlOperation(mutations.createConversation, {
+        input: {
+          name: "First Created Convo for Sage",
+          userConversationsId: props.user.id
+        }
+      })
+    );
+    console.log(result.data.createConversation);
+    setConvoId(result.data.createConversation);
+  };
+
+  // This Changes the Conversation "name" and assigns the convo to a User Model.
+  const createConvo2 = async () => {
+    let updatedConvo = await API.graphql(
+      graphqlOperation(mutations.updateConversation, {
+        input: {
+          id: convoId.id,
+          name: "Second Updated Convo for Jkrb",
+          userConversationsId: props.selectedConvo
+        }
+      })
+    );
+    console.log(updatedConvo.data.updateConversation);
+  };
+
+  // This updates the User Model - showing the added conversation.
+  const addConvoToUser = async () => {
+    let userResult = await API.graphql(
+      graphqlOperation(mutations.updateUser, {
+        input: { id: props.user.id }
+      })
+    );
+    console.log(userResult.data.updateUser);
+  };
+
+  const addConvoToOtherUser = async () => {
+    let userResult = await API.graphql(
+      graphqlOperation(mutations.updateUser, {
+        input: { id: props.selectedConvo }
+      })
+    );
+    console.log(userResult.data.updateUser);
+  };
+
   return (
     <div className="Chat-Box">
       {props.auth && (
         <div>
+          <button onClick={createConvo2}>Add Name to Convo</button>
+          <button onClick={addConvoToUser}>Add Convo to User</button>
+          <button onClick={addConvoToOtherUser}>Add Convo to Other User</button>
+
           {conversation.map(convo => {
             return (
               <p

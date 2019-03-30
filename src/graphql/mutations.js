@@ -24,6 +24,9 @@ export const createPost = `mutation CreatePost($input: CreatePostInput!) {
       contents {
         nextToken
       }
+      users {
+        nextToken
+      }
     }
   }
 }
@@ -49,6 +52,9 @@ export const updatePost = `mutation UpdatePost($input: UpdatePostInput!) {
       id
       name
       contents {
+        nextToken
+      }
+      users {
         nextToken
       }
     }
@@ -78,6 +84,9 @@ export const deletePost = `mutation DeletePost($input: DeletePostInput!) {
       contents {
         nextToken
       }
+      users {
+        nextToken
+      }
     }
   }
 }
@@ -90,6 +99,15 @@ export const createConversation = `mutation CreateConversation($input: CreateCon
       items {
         id
         body
+        createdAt
+      }
+      nextToken
+    }
+    users {
+      items {
+        id
+        name
+        password
         createdAt
       }
       nextToken
@@ -109,6 +127,15 @@ export const updateConversation = `mutation UpdateConversation($input: UpdateCon
       }
       nextToken
     }
+    users {
+      items {
+        id
+        name
+        password
+        createdAt
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -120,6 +147,15 @@ export const deleteConversation = `mutation DeleteConversation($input: DeleteCon
       items {
         id
         body
+        createdAt
+      }
+      nextToken
+    }
+    users {
+      items {
+        id
+        name
+        password
         createdAt
       }
       nextToken

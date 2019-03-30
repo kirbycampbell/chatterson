@@ -26,11 +26,11 @@ const App = () => {
   const [selectedConvo, setSelectedConvo] = useState(null);
 
   useEffect(() => {
-    //if (localStorage.getItem("userName") && localStorage.getItem("userPw")) {
-    //let user = { name: localStorage.getItem("userName") };
-    //let pw = localStorage.getItem("userPw");
-    //authUser(user, pw);
-    //}
+    if (localStorage.getItem("userName") && localStorage.getItem("userPw")) {
+      let user = { name: localStorage.getItem("userName") };
+      let pw = localStorage.getItem("userPw");
+      authUser(user, pw);
+    }
   }, []);
 
   useInterval(() => {

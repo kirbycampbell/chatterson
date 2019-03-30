@@ -24,6 +24,9 @@ export const onCreatePost = `subscription OnCreatePost {
       contents {
         nextToken
       }
+      users {
+        nextToken
+      }
     }
   }
 }
@@ -49,6 +52,9 @@ export const onUpdatePost = `subscription OnUpdatePost {
       id
       name
       contents {
+        nextToken
+      }
+      users {
         nextToken
       }
     }
@@ -78,6 +84,9 @@ export const onDeletePost = `subscription OnDeletePost {
       contents {
         nextToken
       }
+      users {
+        nextToken
+      }
     }
   }
 }
@@ -90,6 +99,15 @@ export const onCreateConversation = `subscription OnCreateConversation {
       items {
         id
         body
+        createdAt
+      }
+      nextToken
+    }
+    users {
+      items {
+        id
+        name
+        password
         createdAt
       }
       nextToken
@@ -109,6 +127,15 @@ export const onUpdateConversation = `subscription OnUpdateConversation {
       }
       nextToken
     }
+    users {
+      items {
+        id
+        name
+        password
+        createdAt
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -120,6 +147,15 @@ export const onDeleteConversation = `subscription OnDeleteConversation {
       items {
         id
         body
+        createdAt
+      }
+      nextToken
+    }
+    users {
+      items {
+        id
+        name
+        password
         createdAt
       }
       nextToken
