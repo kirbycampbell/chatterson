@@ -1,0 +1,22 @@
+.Friend-Box {
+  display: inline-block;
+  position: relative;
+  margin: 1%;
+  float: right;
+  width: 25%;
+  height: 87%;
+  background: rgb(43, 40, 54);
+}
+
+.friend {
+  width: 94%;
+  border: 2px solid rgba(0, 0, 0, 0.438);
+  height: 3%;
+  background: rgba(43, 43, 94, 0.596);
+  padding: 5px;
+  color: white;
+}
+
+.usr-btn {
+  cursor: pointer;
+}

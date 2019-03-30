@@ -1,0 +1,22 @@
+type Post @model {
+  id: ID!
+  body: String!
+  createdBy: User
+  createdAt: String!
+  conversation: Conversation @connection
+}
+
+type Conversation @model {
+  id: ID!
+  name: String
+  contents: [Post] @connection
+}
+
+type User @model {
+  id: ID!
+  name: String!
+  password: String!
+  createdAt: String!
+  friends: [User] @connection
+  conversations: [Conversation] @connection
+}

@@ -1,0 +1,20 @@
+.send-btn {
+  height: 100%;
+  width: 20%;
+  float: right;
+  font-size: 18px;
+  background: rgba(99, 99, 240, 0.616);
+  color: white;
+  border: 1.5px solid rgba(0, 0, 0, 0.212);
+  border-radius: 38px;
+}
+
+.send-btn:hover {
+  background: rgb(128, 98, 211);
+}
+
+.sendBar {
+  float: left;
+  width: 72%;
+  height: 4em;
+}

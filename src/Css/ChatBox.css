@@ -1,0 +1,26 @@
+.Chat-Box {
+  display: inline-block;
+  position: relative;
+  margin: 1%;
+  float: left;
+  width: 70%;
+  height: 64vh;
+  background: rgb(27, 31, 36);
+  overflow: auto;
+  scroll-snap-type: proximity;
+}
+
+.text-boxes {
+  border: 0.5px solid rgba(0, 0, 0, 0.356);
+  width: 40%;
+  background: rgba(63, 255, 245, 0.39);
+  margin-left: 1%;
+  padding: 1%;
+  border-radius: 10px;
+  border-bottom-left-radius: 0px;
+}
+
+.text-boxes:hover {
+  border: 0.5px solid rgba(33, 42, 82, 0.356);
+  background: rgba(49, 231, 222, 0.753);
+}

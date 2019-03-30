@@ -1,0 +1,85 @@
+.NavBar {
+  width: 100%;
+  height: 6%;
+  background: rgba(30, 39, 48, 0.795);
+  overflow: hidden;
+}
+.login-msg {
+  color: white;
+  float: right;
+  margin: 1%;
+}
+.logout-btn {
+  background: rgba(16, 16, 68, 0.644);
+  color: white;
+  height: 100%;
+  cursor: pointer;
+  float: right;
+  margin-right: 2%;
+  width: 80px;
+  border: none;
+  z-index: 20;
+}
+
+.logout-btn:hover {
+  background: rgba(21, 21, 121, 0.644);
+  cursor: pointer;
+  z-index: 20;
+}
+.nav-btns {
+  height: 100%;
+}
+.navitem1 {
+  float: right;
+  background: rgb(27, 15, 19);
+  border: rgba(255, 255, 255, 0);
+  color: white;
+  height: 100%;
+  width: 90px;
+  margin-right: 4%;
+}
+
+.navitem1:hover {
+  background: rgb(54, 23, 33);
+  cursor: pointer;
+}
+
+.navitem1::active {
+  background: rgb(82, 47, 58);
+  cursor: pointer;
+}
+.navitem2 {
+  float: right;
+  background: rgb(27, 15, 19);
+  border: rgba(255, 255, 255, 0);
+  color: white;
+  height: 100%;
+  width: 90px;
+  margin-right: 4%;
+}
+
+.navitem2:hover {
+  background: rgb(54, 23, 33);
+  cursor: pointer;
+}
+
+.navitem2::active {
+  background: rgb(82, 47, 58);
+  cursor: pointer;
+}
+.logo {
+  position: absolute;
+  font-size: 30px;
+  color: white;
+  font-family: "Laila", serif;
+}
+.welcome {
+  float: right;
+  text-align: center;
+  position: absolute;
+  color: white;
+  width: 100%;
+  margin: auto;
+  font-size: 30px;
+  z-index: 0;
+}
