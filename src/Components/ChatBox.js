@@ -64,12 +64,12 @@ export const ChatBox = props => {
     console.log(id);
   };
 
-  // This Creates a blank new Conversation Model
+  // This Creates a blank new Conversation Model and adds this convo to User 1.
   const createConvo = async () => {
     let result = await API.graphql(
       graphqlOperation(mutations.createConversation, {
         input: {
-          name: "First Created Convo for Sage",
+          name: "First: Created Convo for Logged in User",
           userConversationsId: props.user.id
         }
       })
@@ -78,13 +78,13 @@ export const ChatBox = props => {
     setConvoId(result.data.createConversation);
   };
 
-  // This Changes the Conversation "name" and assigns the convo to a User Model.
-  const createConvo2 = async () => {
+  // This Changes the Conversation "name" and assigns the convo to User 2 instead of 1.
+  const updateConvo = async () => {
     let updatedConvo = await API.graphql(
       graphqlOperation(mutations.updateConversation, {
         input: {
           id: convoId.id,
-          name: "Second Updated Convo for Jkrb",
+          name: "Second: Update to Convo for Selected User",
           userConversationsId: props.selectedConvo
         }
       })
@@ -92,8 +92,8 @@ export const ChatBox = props => {
     console.log(updatedConvo.data.updateConversation);
   };
 
-  // This updates the User Model - showing the added conversation.
-  const addConvoToUser = async () => {
+  // This updates the User 1 - showing the added conversation in return (not updating anything really)
+  const updateLoggedInUser = async () => {
     let userResult = await API.graphql(
       graphqlOperation(mutations.updateUser, {
         input: { id: props.user.id }
@@ -102,7 +102,8 @@ export const ChatBox = props => {
     console.log(userResult.data.updateUser);
   };
 
-  const addConvoToOtherUser = async () => {
+  // This updates the User 2 - showing the added conversation in return (not updating anything really)
+  const updateSelectedUser = async () => {
     let userResult = await API.graphql(
       graphqlOperation(mutations.updateUser, {
         input: { id: props.selectedConvo }
@@ -115,9 +116,9 @@ export const ChatBox = props => {
     <div className="Chat-Box">
       {props.auth && (
         <div>
-          <button onClick={createConvo2}>Add Name to Convo</button>
-          <button onClick={addConvoToUser}>Add Convo to User</button>
-          <button onClick={addConvoToOtherUser}>Add Convo to Other User</button>
+          <button onClick={updateConvo}>Add Name to Convo</button>
+          <button onClick={updateLoggedInUser}>Add Convo to User</button>
+          <button onClick={updateSelectedUser}>Add Convo to Other User</button>
 
           {conversation.map(convo => {
             return (

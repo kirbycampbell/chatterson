@@ -10,9 +10,6 @@ export const createPost = `mutation CreatePost($input: CreatePostInput!) {
       name
       password
       createdAt
-      friends {
-        nextToken
-      }
       conversations {
         nextToken
       }
@@ -40,9 +37,6 @@ export const updatePost = `mutation UpdatePost($input: UpdatePostInput!) {
       name
       password
       createdAt
-      friends {
-        nextToken
-      }
       conversations {
         nextToken
       }
@@ -70,9 +64,6 @@ export const deletePost = `mutation DeletePost($input: DeletePostInput!) {
       name
       password
       createdAt
-      friends {
-        nextToken
-      }
       conversations {
         nextToken
       }
@@ -169,15 +160,6 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
     name
     password
     createdAt
-    friends {
-      items {
-        id
-        name
-        password
-        createdAt
-      }
-      nextToken
-    }
     conversations {
       items {
         id
@@ -194,15 +176,6 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
     name
     password
     createdAt
-    friends {
-      items {
-        id
-        name
-        password
-        createdAt
-      }
-      nextToken
-    }
     conversations {
       items {
         id
@@ -219,15 +192,6 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
     name
     password
     createdAt
-    friends {
-      items {
-        id
-        name
-        password
-        createdAt
-      }
-      nextToken
-    }
     conversations {
       items {
         id

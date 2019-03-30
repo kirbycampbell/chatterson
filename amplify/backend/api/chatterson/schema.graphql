@@ -3,7 +3,6 @@ type Post @model {
   body: String!
   createdBy: User
   createdAt: String!
-  conversation: Conversation @connection
 }
 
 type Conversation @model {
@@ -18,6 +17,30 @@ type User @model {
   name: String!
   password: String!
   createdAt: String!
-  friends: [User] @connection
   conversations: [Conversation] @connection
+}
+
+# Do something like this tomorrow - in a new create-react-app and move the src folder over and deps...
+#Do this, but also add a Post/Conversation Join table like PostConvo.  In addition to UserConvo.
+# Without that the above placed an array of convos into User model, when I updated the ConversationUserId.
+#Don't forget to use the schema on AWS AppSync - it has the exact syntax needed to make the updates.  And use ChatBox.js as an example.
+
+type Post @model {
+  id: ID!
+  title: String!
+  editors: [PostEditor] @connection(name: "PostEditors")
+}
+
+# Create a join model and disable queries as you don't need them
+# and can query through Post.editors and User.posts
+type PostEditor @model(queries: null) {
+  id: ID!
+  post: Post! @connection(name: "PostEditors")
+  editor: User! @connection(name: "UserEditors")
+}
+
+type User @model {
+  id: ID!
+  username: String!
+  posts: [PostEditor] @connection(name: "UserEditors")
 }

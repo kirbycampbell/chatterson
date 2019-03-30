@@ -10,9 +10,6 @@ export const onCreatePost = `subscription OnCreatePost {
       name
       password
       createdAt
-      friends {
-        nextToken
-      }
       conversations {
         nextToken
       }
@@ -40,9 +37,6 @@ export const onUpdatePost = `subscription OnUpdatePost {
       name
       password
       createdAt
-      friends {
-        nextToken
-      }
       conversations {
         nextToken
       }
@@ -70,9 +64,6 @@ export const onDeletePost = `subscription OnDeletePost {
       name
       password
       createdAt
-      friends {
-        nextToken
-      }
       conversations {
         nextToken
       }
@@ -169,15 +160,6 @@ export const onCreateUser = `subscription OnCreateUser {
     name
     password
     createdAt
-    friends {
-      items {
-        id
-        name
-        password
-        createdAt
-      }
-      nextToken
-    }
     conversations {
       items {
         id
@@ -194,15 +176,6 @@ export const onUpdateUser = `subscription OnUpdateUser {
     name
     password
     createdAt
-    friends {
-      items {
-        id
-        name
-        password
-        createdAt
-      }
-      nextToken
-    }
     conversations {
       items {
         id
@@ -219,15 +192,6 @@ export const onDeleteUser = `subscription OnDeleteUser {
     name
     password
     createdAt
-    friends {
-      items {
-        id
-        name
-        password
-        createdAt
-      }
-      nextToken
-    }
     conversations {
       items {
         id

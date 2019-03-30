@@ -10,9 +10,6 @@ export const getPost = `query GetPost($id: ID!) {
       name
       password
       createdAt
-      friends {
-        nextToken
-      }
       conversations {
         nextToken
       }
@@ -106,15 +103,6 @@ export const getUser = `query GetUser($id: ID!) {
     name
     password
     createdAt
-    friends {
-      items {
-        id
-        name
-        password
-        createdAt
-      }
-      nextToken
-    }
     conversations {
       items {
         id
@@ -136,9 +124,6 @@ export const listUsers = `query ListUsers(
       name
       password
       createdAt
-      friends {
-        nextToken
-      }
       conversations {
         nextToken
       }
