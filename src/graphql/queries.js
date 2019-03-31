@@ -16,14 +16,10 @@ export const getPost = `query GetPost($id: ID!) {
     }
     createdAt
     conversation {
-      id
-      name
-      contents {
-        nextToken
+      items {
+        id
       }
-      users {
-        nextToken
-      }
+      nextToken
     }
   }
 }
@@ -45,8 +41,7 @@ export const listPosts = `query ListPosts(
       }
       createdAt
       conversation {
-        id
-        name
+        nextToken
       }
     }
     nextToken
@@ -56,21 +51,15 @@ export const listPosts = `query ListPosts(
 export const getConversation = `query GetConversation($id: ID!) {
   getConversation(id: $id) {
     id
-    name
     contents {
       items {
         id
-        body
-        createdAt
       }
       nextToken
     }
     users {
       items {
         id
-        name
-        password
-        createdAt
       }
       nextToken
     }
@@ -85,7 +74,6 @@ export const listConversations = `query ListConversations(
   listConversations(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      name
       contents {
         nextToken
       }
@@ -106,7 +94,6 @@ export const getUser = `query GetUser($id: ID!) {
     conversations {
       items {
         id
-        name
       }
       nextToken
     }

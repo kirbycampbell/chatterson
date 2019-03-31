@@ -16,14 +16,10 @@ export const onCreatePost = `subscription OnCreatePost {
     }
     createdAt
     conversation {
-      id
-      name
-      contents {
-        nextToken
+      items {
+        id
       }
-      users {
-        nextToken
-      }
+      nextToken
     }
   }
 }
@@ -43,14 +39,10 @@ export const onUpdatePost = `subscription OnUpdatePost {
     }
     createdAt
     conversation {
-      id
-      name
-      contents {
-        nextToken
+      items {
+        id
       }
-      users {
-        nextToken
-      }
+      nextToken
     }
   }
 }
@@ -70,8 +62,91 @@ export const onDeletePost = `subscription OnDeletePost {
     }
     createdAt
     conversation {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onCreateConvoPosts = `subscription OnCreateConvoPosts {
+  onCreateConvoPosts {
+    id
+    contents {
       id
-      name
+      body
+      createdBy {
+        id
+        name
+        password
+        createdAt
+      }
+      createdAt
+      conversation {
+        nextToken
+      }
+    }
+    conversations {
+      id
+      contents {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const onUpdateConvoPosts = `subscription OnUpdateConvoPosts {
+  onUpdateConvoPosts {
+    id
+    contents {
+      id
+      body
+      createdBy {
+        id
+        name
+        password
+        createdAt
+      }
+      createdAt
+      conversation {
+        nextToken
+      }
+    }
+    conversations {
+      id
+      contents {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const onDeleteConvoPosts = `subscription OnDeleteConvoPosts {
+  onDeleteConvoPosts {
+    id
+    contents {
+      id
+      body
+      createdBy {
+        id
+        name
+        password
+        createdAt
+      }
+      createdAt
+      conversation {
+        nextToken
+      }
+    }
+    conversations {
+      id
       contents {
         nextToken
       }
@@ -85,21 +160,15 @@ export const onDeletePost = `subscription OnDeletePost {
 export const onCreateConversation = `subscription OnCreateConversation {
   onCreateConversation {
     id
-    name
     contents {
       items {
         id
-        body
-        createdAt
       }
       nextToken
     }
     users {
       items {
         id
-        name
-        password
-        createdAt
       }
       nextToken
     }
@@ -109,21 +178,15 @@ export const onCreateConversation = `subscription OnCreateConversation {
 export const onUpdateConversation = `subscription OnUpdateConversation {
   onUpdateConversation {
     id
-    name
     contents {
       items {
         id
-        body
-        createdAt
       }
       nextToken
     }
     users {
       items {
         id
-        name
-        password
-        createdAt
       }
       nextToken
     }
@@ -133,23 +196,89 @@ export const onUpdateConversation = `subscription OnUpdateConversation {
 export const onDeleteConversation = `subscription OnDeleteConversation {
   onDeleteConversation {
     id
-    name
     contents {
       items {
         id
-        body
-        createdAt
       }
       nextToken
     }
     users {
       items {
         id
-        name
-        password
-        createdAt
       }
       nextToken
+    }
+  }
+}
+`;
+export const onCreateUserConvo = `subscription OnCreateUserConvo {
+  onCreateUserConvo {
+    id
+    conversation {
+      id
+      contents {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+    users {
+      id
+      name
+      password
+      createdAt
+      conversations {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const onUpdateUserConvo = `subscription OnUpdateUserConvo {
+  onUpdateUserConvo {
+    id
+    conversation {
+      id
+      contents {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+    users {
+      id
+      name
+      password
+      createdAt
+      conversations {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const onDeleteUserConvo = `subscription OnDeleteUserConvo {
+  onDeleteUserConvo {
+    id
+    conversation {
+      id
+      contents {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+    users {
+      id
+      name
+      password
+      createdAt
+      conversations {
+        nextToken
+      }
     }
   }
 }
@@ -163,7 +292,6 @@ export const onCreateUser = `subscription OnCreateUser {
     conversations {
       items {
         id
-        name
       }
       nextToken
     }
@@ -179,7 +307,6 @@ export const onUpdateUser = `subscription OnUpdateUser {
     conversations {
       items {
         id
-        name
       }
       nextToken
     }
@@ -195,7 +322,6 @@ export const onDeleteUser = `subscription OnDeleteUser {
     conversations {
       items {
         id
-        name
       }
       nextToken
     }

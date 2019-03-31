@@ -16,14 +16,10 @@ export const createPost = `mutation CreatePost($input: CreatePostInput!) {
     }
     createdAt
     conversation {
-      id
-      name
-      contents {
-        nextToken
+      items {
+        id
       }
-      users {
-        nextToken
-      }
+      nextToken
     }
   }
 }
@@ -43,14 +39,10 @@ export const updatePost = `mutation UpdatePost($input: UpdatePostInput!) {
     }
     createdAt
     conversation {
-      id
-      name
-      contents {
-        nextToken
+      items {
+        id
       }
-      users {
-        nextToken
-      }
+      nextToken
     }
   }
 }
@@ -70,8 +62,91 @@ export const deletePost = `mutation DeletePost($input: DeletePostInput!) {
     }
     createdAt
     conversation {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const createConvoPosts = `mutation CreateConvoPosts($input: CreateConvoPostsInput!) {
+  createConvoPosts(input: $input) {
+    id
+    contents {
       id
-      name
+      body
+      createdBy {
+        id
+        name
+        password
+        createdAt
+      }
+      createdAt
+      conversation {
+        nextToken
+      }
+    }
+    conversations {
+      id
+      contents {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const updateConvoPosts = `mutation UpdateConvoPosts($input: UpdateConvoPostsInput!) {
+  updateConvoPosts(input: $input) {
+    id
+    contents {
+      id
+      body
+      createdBy {
+        id
+        name
+        password
+        createdAt
+      }
+      createdAt
+      conversation {
+        nextToken
+      }
+    }
+    conversations {
+      id
+      contents {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const deleteConvoPosts = `mutation DeleteConvoPosts($input: DeleteConvoPostsInput!) {
+  deleteConvoPosts(input: $input) {
+    id
+    contents {
+      id
+      body
+      createdBy {
+        id
+        name
+        password
+        createdAt
+      }
+      createdAt
+      conversation {
+        nextToken
+      }
+    }
+    conversations {
+      id
       contents {
         nextToken
       }
@@ -85,21 +160,15 @@ export const deletePost = `mutation DeletePost($input: DeletePostInput!) {
 export const createConversation = `mutation CreateConversation($input: CreateConversationInput!) {
   createConversation(input: $input) {
     id
-    name
     contents {
       items {
         id
-        body
-        createdAt
       }
       nextToken
     }
     users {
       items {
         id
-        name
-        password
-        createdAt
       }
       nextToken
     }
@@ -109,21 +178,15 @@ export const createConversation = `mutation CreateConversation($input: CreateCon
 export const updateConversation = `mutation UpdateConversation($input: UpdateConversationInput!) {
   updateConversation(input: $input) {
     id
-    name
     contents {
       items {
         id
-        body
-        createdAt
       }
       nextToken
     }
     users {
       items {
         id
-        name
-        password
-        createdAt
       }
       nextToken
     }
@@ -133,23 +196,89 @@ export const updateConversation = `mutation UpdateConversation($input: UpdateCon
 export const deleteConversation = `mutation DeleteConversation($input: DeleteConversationInput!) {
   deleteConversation(input: $input) {
     id
-    name
     contents {
       items {
         id
-        body
-        createdAt
       }
       nextToken
     }
     users {
       items {
         id
-        name
-        password
-        createdAt
       }
       nextToken
+    }
+  }
+}
+`;
+export const createUserConvo = `mutation CreateUserConvo($input: CreateUserConvoInput!) {
+  createUserConvo(input: $input) {
+    id
+    conversation {
+      id
+      contents {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+    users {
+      id
+      name
+      password
+      createdAt
+      conversations {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const updateUserConvo = `mutation UpdateUserConvo($input: UpdateUserConvoInput!) {
+  updateUserConvo(input: $input) {
+    id
+    conversation {
+      id
+      contents {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+    users {
+      id
+      name
+      password
+      createdAt
+      conversations {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const deleteUserConvo = `mutation DeleteUserConvo($input: DeleteUserConvoInput!) {
+  deleteUserConvo(input: $input) {
+    id
+    conversation {
+      id
+      contents {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+    users {
+      id
+      name
+      password
+      createdAt
+      conversations {
+        nextToken
+      }
     }
   }
 }
@@ -163,7 +292,6 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
     conversations {
       items {
         id
-        name
       }
       nextToken
     }
@@ -179,7 +307,6 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
     conversations {
       items {
         id
-        name
       }
       nextToken
     }
@@ -195,7 +322,6 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
     conversations {
       items {
         id
-        name
       }
       nextToken
     }
