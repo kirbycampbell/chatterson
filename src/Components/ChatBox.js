@@ -75,15 +75,25 @@ export const ChatBox = props => {
       graphqlOperation(mutations.createUserConvo, {
         input: {
           userConvoConversationId: convo.data.createConversation.id,
-          userConvoUsersId: props.selectedConvo,
+          userConvoUsersId: props.selectedConvo
+          //userConvoUsersId: props.user.id
+        }
+      })
+    );
+    let updateUserConvo = await API.graphql(
+      graphqlOperation(mutations.updateUserConvo, {
+        input: {
+          id: userConvo.data.createUserConvo.id,
           userConvoUsersId: props.user.id
         }
       })
     );
     console.log("Conversation Model Created: ");
     console.log(convo.data.createConversation);
-    console.log("UserConvo Model Created with Conversation & Users Added");
+    console.log("UserConvo Model Created with Conversation & Sel User Added");
     console.log(userConvo.data.createUserConvo);
+    console.log("UserConvo Model Created with Conversation & YOUSER Added");
+    console.log(updateUserConvo);
   };
 
   // This updates the User 1 - showing the added conversation in return (not updating anything really)
