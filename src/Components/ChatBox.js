@@ -71,29 +71,30 @@ export const ChatBox = props => {
         input: {}
       })
     );
+    console.log("Conversation Model Created: ");
+    console.log(convo.data.createConversation);
+    setConvoId(convo.data.createConversation.id);
     let userConvo = await API.graphql(
       graphqlOperation(mutations.createUserConvo, {
         input: {
           userConvoConversationId: convo.data.createConversation.id,
           userConvoUsersId: props.selectedConvo
-          //userConvoUsersId: props.user.id
         }
       })
     );
-    let updateUserConvo = await API.graphql(
-      graphqlOperation(mutations.updateUserConvo, {
+    console.log("UserConvo Model Created with Conversation & Sel User Added");
+    console.log(userConvo.data.createUserConvo);
+    let userConvo2 = await API.graphql(
+      graphqlOperation(mutations.createUserConvo, {
         input: {
-          id: userConvo.data.createUserConvo.id,
+          userConvoConversationId: convo.data.createConversation.id,
           userConvoUsersId: props.user.id
         }
       })
     );
-    console.log("Conversation Model Created: ");
-    console.log(convo.data.createConversation);
-    console.log("UserConvo Model Created with Conversation & Sel User Added");
-    console.log(userConvo.data.createUserConvo);
+
     console.log("UserConvo Model Created with Conversation & YOUSER Added");
-    console.log(updateUserConvo);
+    console.log(userConvo2.data.createUserConvo);
   };
 
   // This updates the User 1 - showing the added conversation in return (not updating anything really)
@@ -104,7 +105,7 @@ export const ChatBox = props => {
       })
     );
     console.log("User1's data with UserConvo Id in Array: ");
-    console.log(userResult.data.updateUser.conversations.items);
+    console.log(userResult.data.updateUser);
   };
 
   // This updates the User 2 - showing the added conversation in return (not updating anything really)
@@ -115,7 +116,16 @@ export const ChatBox = props => {
       })
     );
     console.log("User2's data with UserConvo Id in Array: ");
-    console.log(userResult.data.updateUser.conversations.items);
+    console.log(userResult.data.updateUser);
+  };
+
+  const showConvo = async () => {
+    let updatedConvo = await API.graphql(
+      graphqlOperation(mutations.updateConversation, {
+        input: { id: convoId }
+      })
+    );
+    console.log(updatedConvo);
   };
 
   return (
@@ -124,7 +134,7 @@ export const ChatBox = props => {
         <div>
           <button onClick={updateLoggedInUser}>Add Convo to User</button>
           <button onClick={updateSelectedUser}>Add Convo to Other User</button>
-
+          <button onClick={showConvo}>Show Convo</button>
           {conversation.map(convo => {
             return (
               <p

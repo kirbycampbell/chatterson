@@ -15,13 +15,7 @@ type ConvoPosts @model(queries: null) {
 type Conversation @model {
   id: ID!
   contents: [ConvoPosts] @connection(name: "ConvoPosts")
-  users: [UserConvo] @connection(name: "ConvoUsers")
-}
-
-type UserConvo @model(queries: null) {
-  id: ID!
-  conversation: Conversation! @connection(name: "ConvoUsers")
-  users: User! @connection(name: "UserConvos")
+  createdBy: User
 }
 
 type User @model {
@@ -29,5 +23,5 @@ type User @model {
   name: String!
   password: String!
   createdAt: String!
-  conversations: [UserConvo] @connection(name: "UserConvos")
+  conversations: [Conversation]
 }
