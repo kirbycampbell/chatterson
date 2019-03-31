@@ -71,8 +71,7 @@ export const ChatBox = props => {
         input: {}
       })
     );
-    console.log("Conversation Model Created: ");
-    console.log(convo.data.createConversation);
+
     setConvoId(convo.data.createConversation.id);
     let userConvo = await API.graphql(
       graphqlOperation(mutations.createUserConvo, {
@@ -82,8 +81,7 @@ export const ChatBox = props => {
         }
       })
     );
-    console.log("UserConvo Model Created with Conversation & Sel User Added");
-    console.log(userConvo.data.createUserConvo);
+
     let userConvo2 = await API.graphql(
       graphqlOperation(mutations.createUserConvo, {
         input: {
@@ -92,9 +90,6 @@ export const ChatBox = props => {
         }
       })
     );
-
-    console.log("UserConvo Model Created with Conversation & YOUSER Added");
-    console.log(userConvo2.data.createUserConvo);
   };
 
   // This updates the User 1 - showing the added conversation in return (not updating anything really)
@@ -104,8 +99,6 @@ export const ChatBox = props => {
         input: { id: props.user.id }
       })
     );
-    console.log("User1's data with UserConvo Id in Array: ");
-    console.log(userResult.data.updateUser);
   };
 
   // This updates the User 2 - showing the added conversation in return (not updating anything really)
@@ -115,8 +108,6 @@ export const ChatBox = props => {
         input: { id: props.selectedConvo }
       })
     );
-    console.log("User2's data with UserConvo Id in Array: ");
-    console.log(userResult.data.updateUser);
   };
 
   const showConvo = async () => {
@@ -125,7 +116,6 @@ export const ChatBox = props => {
         input: { id: convoId }
       })
     );
-    console.log(updatedConvo);
   };
 
   return (
