@@ -16,21 +16,11 @@ export const ChatBox = props => {
       //subscriptionMsgs();
       createConvo();
       //createConvo2();
+      // if (convoId) {
+      //   addUserToConvo();
+      // }
     }
   }, [props.selectedConvo]);
-
-  // // Send assigns Msg state and sends it to DB....
-  // const send = async () => {
-  //   const postDeets = {
-  //     body: message,
-  //     createdAt: ""
-  //   };
-  //   await API.graphql(
-  //     graphqlOperation(mutations.createPost, { input: postDeets })
-  //   );
-  //   // Resets Message form to empty...
-  //   setMessage("");
-  // };
 
   // queryMsgs queries the DB for all Msgs
   const queryMsgs = async () => {
@@ -66,48 +56,37 @@ export const ChatBox = props => {
 
   // This Creates a blank new Conversation Model and adds this convo to User 1.
   const createConvo = async () => {
-    let convo = await API.graphql(
-      graphqlOperation(mutations.createConversation, {
-        input: {}
+    const user1Convos = await API.graphql(
+      graphqlOperation(queries.getUser, {
+        id: props.user.id
       })
     );
+    console.log(user1Convos.data.getUser.conversations);
 
-    setConvoId(convo.data.createConversation.id);
-    let userConvo = await API.graphql(
-      graphqlOperation(mutations.createUserConvo, {
-        input: {
-          userConvoConversationId: convo.data.createConversation.id,
-          userConvoUsersId: props.selectedConvo
-        }
-      })
-    );
+    // let convo = await API.graphql(
+    //   graphqlOperation(mutations.createConversation, {
+    //     input: {}
+    //   })
+    // );
+    // setConvoId(convo.data.createConversation.id);
+    // console.log("convo Created!");
 
-    let userConvo2 = await API.graphql(
-      graphqlOperation(mutations.createUserConvo, {
-        input: {
-          userConvoConversationId: convo.data.createConversation.id,
-          userConvoUsersId: props.user.id
-        }
-      })
-    );
-  };
-
-  // This updates the User 1 - showing the added conversation in return (not updating anything really)
-  const updateLoggedInUser = async () => {
-    let userResult = await API.graphql(
-      graphqlOperation(mutations.updateUser, {
-        input: { id: props.user.id }
-      })
-    );
-  };
-
-  // This updates the User 2 - showing the added conversation in return (not updating anything really)
-  const updateSelectedUser = async () => {
-    let userResult = await API.graphql(
-      graphqlOperation(mutations.updateUser, {
-        input: { id: props.selectedConvo }
-      })
-    );
+    // let userConvo = await API.graphql(
+    //   graphqlOperation(mutations.createUserConvo, {
+    //     input: {
+    //       userConvoConversationId: convoId,
+    //       userConvoUsersId: props.selectedConvo
+    //     }
+    //   })
+    // );
+    // let userConvo2 = await API.graphql(
+    //   graphqlOperation(mutations.createUserConvo, {
+    //     input: {
+    //       userConvoConversationId: convoId,
+    //       userConvoUsersId: props.user.id
+    //     }
+    //   })
+    // );
   };
 
   const showConvo = async () => {
@@ -116,14 +95,13 @@ export const ChatBox = props => {
         input: { id: convoId }
       })
     );
+    console.log(updatedConvo.data.updateConversation.users.items);
   };
 
   return (
     <div className="Chat-Box">
       {props.auth && (
         <div>
-          <button onClick={updateLoggedInUser}>Add Convo to User</button>
-          <button onClick={updateSelectedUser}>Add Convo to Other User</button>
           <button onClick={showConvo}>Show Convo</button>
           {conversation.map(convo => {
             return (
