@@ -60,7 +60,6 @@ const App = () => {
   // ::::::::::::::::: Set Selected Convo ::::::
   const convoSelection = convoId => {
     setSelectedConvo(convoId);
-    console.log("In App.js");
     console.log(convoId);
   };
 
@@ -154,7 +153,7 @@ const App = () => {
         convoSelection={convoSelection}
       />
       <FriendBox setConvo={setConvo} auth={auth} />
-      <TypeBox />
+      <TypeBox convo={selectedConvo} user={user} />
     </div>
   );
 };

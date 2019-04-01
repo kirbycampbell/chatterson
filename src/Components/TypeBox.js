@@ -4,7 +4,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
 import "../Css/TypeBox.css";
 
-export const TypeBox = () => {
+export const TypeBox = props => {
   const [message, setMessage] = useState("");
 
   // When Typing- sets message state to that which is typed...
@@ -16,7 +16,9 @@ export const TypeBox = () => {
   const send = async () => {
     const postDeets = {
       body: message,
-      createdAt: ""
+      createdAt: "",
+      createdBy: props.user,
+      conversation: props.convo
     };
     await API.graphql(
       graphqlOperation(mutations.createPost, { input: postDeets })
