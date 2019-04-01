@@ -23,6 +23,7 @@ const App = () => {
   const [user, setUser] = useState([]);
   const [loginMsg, setLoginMsg] = useState("");
   const [loginMsgTimer, setLoginMsgTimer] = useState(0);
+  const [selectedUser, setselectedUser] = useState(null);
   const [selectedConvo, setSelectedConvo] = useState(null);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ const App = () => {
   // Set Convo will be for connecting the logged in user-
   // to the chat window of the user id chosen.
   const setConvo = id => {
-    setSelectedConvo(id);
+    setselectedUser(id);
   };
 
   // Manages Login/SignUp Form Visibility
@@ -54,6 +55,13 @@ const App = () => {
   };
   const handleUserSignIn = () => {
     setSignIn(!signIn);
+  };
+
+  // ::::::::::::::::: Set Selected Convo ::::::
+  const convoSelection = convoId => {
+    setSelectedConvo(convoId);
+    console.log("In App.js");
+    console.log(convoId);
   };
 
   //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -139,7 +147,12 @@ const App = () => {
         render={signIn}
         handleUserSignIn={handleUserSignIn}
       />
-      <ChatBox auth={auth} user={user} selectedConvo={selectedConvo} />
+      <ChatBox
+        auth={auth}
+        user={user}
+        selectedUser={selectedUser}
+        convoSelection={convoSelection}
+      />
       <FriendBox setConvo={setConvo} auth={auth} />
       <TypeBox />
     </div>

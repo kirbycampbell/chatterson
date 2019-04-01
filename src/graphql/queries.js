@@ -48,6 +48,56 @@ export const listPosts = `query ListPosts(
   }
 }
 `;
+export const getConvoPosts = `query GetConvoPosts($id: ID!) {
+  getConvoPosts(id: $id) {
+    id
+    contents {
+      id
+      body
+      createdBy {
+        id
+        name
+        password
+        createdAt
+      }
+      createdAt
+      conversation {
+        nextToken
+      }
+    }
+    conversations {
+      id
+      contents {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const listConvoPostss = `query ListConvoPostss(
+  $filter: ModelConvoPostsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listConvoPostss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      contents {
+        id
+        body
+        createdAt
+      }
+      conversations {
+        id
+      }
+    }
+    nextToken
+  }
+}
+`;
 export const getConversation = `query GetConversation($id: ID!) {
   getConversation(id: $id) {
     id
@@ -79,6 +129,52 @@ export const listConversations = `query ListConversations(
       }
       users {
         nextToken
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const getUserConvo = `query GetUserConvo($id: ID!) {
+  getUserConvo(id: $id) {
+    id
+    conversation {
+      id
+      contents {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+    users {
+      id
+      name
+      password
+      createdAt
+      conversations {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const listUserConvos = `query ListUserConvos(
+  $filter: ModelUserConvoFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUserConvos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      conversation {
+        id
+      }
+      users {
+        id
+        name
+        password
+        createdAt
       }
     }
     nextToken

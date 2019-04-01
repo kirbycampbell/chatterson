@@ -6,7 +6,7 @@ type Post @model {
   conversation: [ConvoPosts] @connection(name: "PostConvos")
 }
 
-type ConvoPosts @model(queries: null) {
+type ConvoPosts @model {
   id: ID!
   contents: Post @connection(name: "PostConvos")
   conversations: Conversation @connection(name: "ConvoPosts")
@@ -18,7 +18,7 @@ type Conversation @model {
   users: [UserConvo] @connection(name: "ConvoUsers")
 }
 
-type UserConvo @model(queries: null) {
+type UserConvo @model {
   id: ID!
   conversation: Conversation! @connection(name: "ConvoUsers")
   users: User @connection(name: "UserConvos")

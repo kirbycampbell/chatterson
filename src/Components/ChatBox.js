@@ -11,16 +11,12 @@ export const ChatBox = props => {
 
   // useEffect Queries for Messages, and subscribes to new Msgs.
   useEffect(() => {
-    if (props.selectedConvo) {
+    if (props.selectedUser) {
       //queryMsgs();
       //subscriptionMsgs();
-      createConvo();
-      //createConvo2();
-      // if (convoId) {
-      //   addUserToConvo();
-      // }
+      findConvo();
     }
-  }, [props.selectedConvo]);
+  }, [props.selectedUser]);
 
   // queryMsgs queries the DB for all Msgs
   const queryMsgs = async () => {
@@ -55,38 +51,52 @@ export const ChatBox = props => {
   };
 
   // This Creates a blank new Conversation Model and adds this convo to User 1.
-  const createConvo = async () => {
-    const user1Convos = await API.graphql(
+  const findConvo = async () => {
+    const myConvos = await API.graphql(
       graphqlOperation(queries.getUser, {
         id: props.user.id
       })
     );
-    console.log(user1Convos.data.getUser.conversations);
+    // Filters through the User's Convos to find a matching UserConvo.id == props.selectedUser
+    const filteredConvos = myConvos.data.getUser.conversations.items.filter(
+      el => el.id === props.selectedUser
+    );
+    if (filteredConvos.length > 0) {
+      console.log("Found Convo With that User");
+      getUserConvo();
+    } else {
+      makeConvo();
+    }
+  };
 
-    // let convo = await API.graphql(
-    //   graphqlOperation(mutations.createConversation, {
-    //     input: {}
-    //   })
-    // );
-    // setConvoId(convo.data.createConversation.id);
-    // console.log("convo Created!");
+  const getUserConvo = async () => {
+    const pullConvo = await API.graphql(
+      graphqlOperation(queries.getUserConvo, {
+        id: props.selectedUser
+      })
+    );
+    setConvoId(pullConvo.data.getUserConvo.conversation.id);
+    props.convoSelection(pullConvo.data.getUserConvo.conversation.id);
+  };
 
-    // let userConvo = await API.graphql(
-    //   graphqlOperation(mutations.createUserConvo, {
-    //     input: {
-    //       userConvoConversationId: convoId,
-    //       userConvoUsersId: props.selectedConvo
-    //     }
-    //   })
-    // );
-    // let userConvo2 = await API.graphql(
-    //   graphqlOperation(mutations.createUserConvo, {
-    //     input: {
-    //       userConvoConversationId: convoId,
-    //       userConvoUsersId: props.user.id
-    //     }
-    //   })
-    // );
+  const makeConvo = async () => {
+    let convo = await API.graphql(
+      graphqlOperation(mutations.createConversation, {
+        input: {}
+      })
+    );
+    setConvoId(convo.data.createConversation.id);
+    console.log("convo Created!");
+    let userConvo = await API.graphql(
+      graphqlOperation(mutations.createUserConvo, {
+        input: {
+          id: props.selectedUser,
+          userConvoConversationId: convo.data.createConversation.id,
+          userConvoUsersId: props.selectedUser
+        }
+      })
+    );
+    console.log("User Convo Created w/ UserConvo.id set to selected User's Id");
   };
 
   const showConvo = async () => {
