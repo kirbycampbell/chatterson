@@ -16,10 +16,13 @@ export const createPost = `mutation CreatePost($input: CreatePostInput!) {
     }
     createdAt
     conversation {
-      items {
+      id
+      contents {
+        nextToken
+      }
+      conversations {
         id
       }
-      nextToken
     }
   }
 }
@@ -39,10 +42,13 @@ export const updatePost = `mutation UpdatePost($input: UpdatePostInput!) {
     }
     createdAt
     conversation {
-      items {
+      id
+      contents {
+        nextToken
+      }
+      conversations {
         id
       }
-      nextToken
     }
   }
 }
@@ -62,10 +68,13 @@ export const deletePost = `mutation DeletePost($input: DeletePostInput!) {
     }
     createdAt
     conversation {
-      items {
+      id
+      contents {
+        nextToken
+      }
+      conversations {
         id
       }
-      nextToken
     }
   }
 }
@@ -74,18 +83,12 @@ export const createConvoPosts = `mutation CreateConvoPosts($input: CreateConvoPo
   createConvoPosts(input: $input) {
     id
     contents {
-      id
-      body
-      createdBy {
+      items {
         id
-        name
-        password
+        body
         createdAt
       }
-      createdAt
-      conversation {
-        nextToken
-      }
+      nextToken
     }
     conversations {
       id
@@ -103,18 +106,12 @@ export const updateConvoPosts = `mutation UpdateConvoPosts($input: UpdateConvoPo
   updateConvoPosts(input: $input) {
     id
     contents {
-      id
-      body
-      createdBy {
+      items {
         id
-        name
-        password
+        body
         createdAt
       }
-      createdAt
-      conversation {
-        nextToken
-      }
+      nextToken
     }
     conversations {
       id
@@ -132,18 +129,12 @@ export const deleteConvoPosts = `mutation DeleteConvoPosts($input: DeleteConvoPo
   deleteConvoPosts(input: $input) {
     id
     contents {
-      id
-      body
-      createdBy {
+      items {
         id
-        name
-        password
+        body
         createdAt
       }
-      createdAt
-      conversation {
-        nextToken
-      }
+      nextToken
     }
     conversations {
       id

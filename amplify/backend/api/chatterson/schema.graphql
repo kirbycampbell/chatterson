@@ -3,12 +3,12 @@ type Post @model {
   body: String!
   createdBy: User
   createdAt: String!
-  conversation: [ConvoPosts] @connection(name: "PostConvos")
+  conversation: ConvoPosts @connection(name: "PostConvos")
 }
 
 type ConvoPosts @model {
   id: ID!
-  contents: Post @connection(name: "PostConvos")
+  contents: [Post] @connection(name: "PostConvos")
   conversations: Conversation @connection(name: "ConvoPosts")
 }
 

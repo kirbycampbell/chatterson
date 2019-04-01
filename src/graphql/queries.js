@@ -16,10 +16,13 @@ export const getPost = `query GetPost($id: ID!) {
     }
     createdAt
     conversation {
-      items {
+      id
+      contents {
+        nextToken
+      }
+      conversations {
         id
       }
-      nextToken
     }
   }
 }
@@ -41,7 +44,7 @@ export const listPosts = `query ListPosts(
       }
       createdAt
       conversation {
-        nextToken
+        id
       }
     }
     nextToken
@@ -52,18 +55,12 @@ export const getConvoPosts = `query GetConvoPosts($id: ID!) {
   getConvoPosts(id: $id) {
     id
     contents {
-      id
-      body
-      createdBy {
+      items {
         id
-        name
-        password
+        body
         createdAt
       }
-      createdAt
-      conversation {
-        nextToken
-      }
+      nextToken
     }
     conversations {
       id
@@ -86,9 +83,7 @@ export const listConvoPostss = `query ListConvoPostss(
     items {
       id
       contents {
-        id
-        body
-        createdAt
+        nextToken
       }
       conversations {
         id

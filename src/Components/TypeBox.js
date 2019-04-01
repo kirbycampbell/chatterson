@@ -35,6 +35,7 @@ export const TypeBox = props => {
         }
       })
     );
+    console.log("Convo Post::: ");
     console.log(newConvoPost);
     // await API.graphql(
     //   graphqlOperation(mutations.createConvoPosts, {

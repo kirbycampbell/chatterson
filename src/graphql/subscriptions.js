@@ -16,10 +16,13 @@ export const onCreatePost = `subscription OnCreatePost {
     }
     createdAt
     conversation {
-      items {
+      id
+      contents {
+        nextToken
+      }
+      conversations {
         id
       }
-      nextToken
     }
   }
 }
@@ -39,10 +42,13 @@ export const onUpdatePost = `subscription OnUpdatePost {
     }
     createdAt
     conversation {
-      items {
+      id
+      contents {
+        nextToken
+      }
+      conversations {
         id
       }
-      nextToken
     }
   }
 }
@@ -62,10 +68,13 @@ export const onDeletePost = `subscription OnDeletePost {
     }
     createdAt
     conversation {
-      items {
+      id
+      contents {
+        nextToken
+      }
+      conversations {
         id
       }
-      nextToken
     }
   }
 }
@@ -74,18 +83,12 @@ export const onCreateConvoPosts = `subscription OnCreateConvoPosts {
   onCreateConvoPosts {
     id
     contents {
-      id
-      body
-      createdBy {
+      items {
         id
-        name
-        password
+        body
         createdAt
       }
-      createdAt
-      conversation {
-        nextToken
-      }
+      nextToken
     }
     conversations {
       id
@@ -103,18 +106,12 @@ export const onUpdateConvoPosts = `subscription OnUpdateConvoPosts {
   onUpdateConvoPosts {
     id
     contents {
-      id
-      body
-      createdBy {
+      items {
         id
-        name
-        password
+        body
         createdAt
       }
-      createdAt
-      conversation {
-        nextToken
-      }
+      nextToken
     }
     conversations {
       id
@@ -132,18 +129,12 @@ export const onDeleteConvoPosts = `subscription OnDeleteConvoPosts {
   onDeleteConvoPosts {
     id
     contents {
-      id
-      body
-      createdBy {
+      items {
         id
-        name
-        password
+        body
         createdAt
       }
-      createdAt
-      conversation {
-        nextToken
-      }
+      nextToken
     }
     conversations {
       id
