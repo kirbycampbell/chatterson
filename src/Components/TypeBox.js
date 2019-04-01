@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { SendBar } from "./SendBar";
 import { API, graphqlOperation } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
+import * as queries from "../graphql/queries";
 import "../Css/TypeBox.css";
 
 export const TypeBox = props => {
@@ -15,16 +16,44 @@ export const TypeBox = props => {
   // Send assigns Msg state and sends it to DB....
   const send = async () => {
     const postDeets = {
-      body: message,
-      createdAt: "",
-      createdBy: props.user,
-      conversation: props.convo
+      body: "Stinker",
+      createdAt: ""
     };
-    await API.graphql(
+    const message = await API.graphql(
       graphqlOperation(mutations.createPost, { input: postDeets })
     );
     // Resets Message form to empty...
     setMessage("");
+    console.log("Show New Post::: ");
+    console.log(message);
+
+    const newConvoPost = await API.graphql(
+      graphqlOperation(mutations.createConvoPosts, {
+        input: {
+          convoPostsContentsId: message.data.createPost.id,
+          convoPostsConversationsId: props.convo
+        }
+      })
+    );
+    console.log(newConvoPost);
+    // await API.graphql(
+    //   graphqlOperation(mutations.createConvoPosts, {
+    //     input: {
+    //       convoPostsContentsId: message.data.createPost.id,
+    //       convoPostsConversationsId: props.selectedConvo
+    //     }
+    //   })
+    // );
+  };
+
+  const showConvo = async () => {
+    const convoo = await API.graphql(
+      graphqlOperation(queries.getConversation, {
+        id: props.convo
+      })
+    );
+    console.log("Show Convoo::: ");
+    console.log(convoo);
   };
 
   return (
@@ -37,6 +66,7 @@ export const TypeBox = props => {
           onChange={typing}
         />
       </div>
+      <button onClick={showConvo}>Show Convo</button>
       <SendBar send={send} />
     </div>
   );
