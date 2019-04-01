@@ -1,6 +1,66 @@
 // eslint-disable
 // this is an auto generated file. This will be overwritten
 
+export const onCreateConversation = `subscription OnCreateConversation {
+  onCreateConversation {
+    id
+    posts {
+      items {
+        id
+        body
+        createdAt
+      }
+      nextToken
+    }
+    users {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onUpdateConversation = `subscription OnUpdateConversation {
+  onUpdateConversation {
+    id
+    posts {
+      items {
+        id
+        body
+        createdAt
+      }
+      nextToken
+    }
+    users {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onDeleteConversation = `subscription OnDeleteConversation {
+  onDeleteConversation {
+    id
+    posts {
+      items {
+        id
+        body
+        createdAt
+      }
+      nextToken
+    }
+    users {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+`;
 export const onCreatePost = `subscription OnCreatePost {
   onCreatePost {
     id
@@ -17,11 +77,11 @@ export const onCreatePost = `subscription OnCreatePost {
     createdAt
     conversation {
       id
-      contents {
+      posts {
         nextToken
       }
-      conversations {
-        id
+      users {
+        nextToken
       }
     }
   }
@@ -43,11 +103,11 @@ export const onUpdatePost = `subscription OnUpdatePost {
     createdAt
     conversation {
       id
-      contents {
+      posts {
         nextToken
       }
-      conversations {
-        id
+      users {
+        nextToken
       }
     }
   }
@@ -69,135 +129,12 @@ export const onDeletePost = `subscription OnDeletePost {
     createdAt
     conversation {
       id
-      contents {
-        nextToken
-      }
-      conversations {
-        id
-      }
-    }
-  }
-}
-`;
-export const onCreateConvoPosts = `subscription OnCreateConvoPosts {
-  onCreateConvoPosts {
-    id
-    contents {
-      items {
-        id
-        body
-        createdAt
-      }
-      nextToken
-    }
-    conversations {
-      id
-      contents {
+      posts {
         nextToken
       }
       users {
         nextToken
       }
-    }
-  }
-}
-`;
-export const onUpdateConvoPosts = `subscription OnUpdateConvoPosts {
-  onUpdateConvoPosts {
-    id
-    contents {
-      items {
-        id
-        body
-        createdAt
-      }
-      nextToken
-    }
-    conversations {
-      id
-      contents {
-        nextToken
-      }
-      users {
-        nextToken
-      }
-    }
-  }
-}
-`;
-export const onDeleteConvoPosts = `subscription OnDeleteConvoPosts {
-  onDeleteConvoPosts {
-    id
-    contents {
-      items {
-        id
-        body
-        createdAt
-      }
-      nextToken
-    }
-    conversations {
-      id
-      contents {
-        nextToken
-      }
-      users {
-        nextToken
-      }
-    }
-  }
-}
-`;
-export const onCreateConversation = `subscription OnCreateConversation {
-  onCreateConversation {
-    id
-    contents {
-      items {
-        id
-      }
-      nextToken
-    }
-    users {
-      items {
-        id
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onUpdateConversation = `subscription OnUpdateConversation {
-  onUpdateConversation {
-    id
-    contents {
-      items {
-        id
-      }
-      nextToken
-    }
-    users {
-      items {
-        id
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onDeleteConversation = `subscription OnDeleteConversation {
-  onDeleteConversation {
-    id
-    contents {
-      items {
-        id
-      }
-      nextToken
-    }
-    users {
-      items {
-        id
-      }
-      nextToken
     }
   }
 }
@@ -207,7 +144,7 @@ export const onCreateUserConvo = `subscription OnCreateUserConvo {
     id
     conversation {
       id
-      contents {
+      posts {
         nextToken
       }
       users {
@@ -231,7 +168,7 @@ export const onUpdateUserConvo = `subscription OnUpdateUserConvo {
     id
     conversation {
       id
-      contents {
+      posts {
         nextToken
       }
       users {
@@ -255,7 +192,7 @@ export const onDeleteUserConvo = `subscription OnDeleteUserConvo {
     id
     conversation {
       id
-      contents {
+      posts {
         nextToken
       }
       users {

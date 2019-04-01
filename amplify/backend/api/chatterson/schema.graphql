@@ -1,21 +1,15 @@
+type Conversation @model {
+  id: ID!
+  posts: [Post] @connection(name: "ConvoPosts")
+  users: [UserConvo] @connection(name: "ConvoUsers")
+}
+
 type Post @model {
   id: ID!
   body: String!
   createdBy: User
   createdAt: String!
-  conversation: ConvoPosts @connection(name: "PostConvos")
-}
-
-type ConvoPosts @model {
-  id: ID!
-  contents: [Post] @connection(name: "PostConvos")
-  conversations: Conversation @connection(name: "ConvoPosts")
-}
-
-type Conversation @model {
-  id: ID!
-  contents: [ConvoPosts] @connection(name: "ConvoPosts")
-  users: [UserConvo] @connection(name: "ConvoUsers")
+  conversation: Conversation @connection(name: "ConvoPosts")
 }
 
 type UserConvo @model {

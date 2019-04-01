@@ -15,31 +15,20 @@ export const TypeBox = props => {
 
   // Send assigns Msg state and sends it to DB....
   const send = async () => {
-    // Creates Convo Post
-    const newConvoPost = await API.graphql(
-      graphqlOperation(mutations.createConvoPosts, {
-        input: {
-          //convoPostsConversationsId: message1.data.createPost.id
-          convoPostsConversationsId: props.convo
-        }
-      })
-    );
-    console.log("Convo Post::: ");
-    console.log(newConvoPost);
     // Creates the New Post
-    const message1 = await API.graphql(
+    const newMSG = await API.graphql(
       graphqlOperation(mutations.createPost, {
         input: {
           body: `${message}`,
           createdAt: "",
-          postConversationId: newConvoPost.data.createConvoPosts.id
+          postConversationId: props.convo
         }
       })
     );
-    // Resets Message form to empty...
+    //Resets Message form to empty...
     setMessage("");
     console.log("Show New Post::: ");
-    console.log(message1);
+    console.log(newMSG);
   };
 
   // TOMORROW:

@@ -1,6 +1,45 @@
 // eslint-disable
 // this is an auto generated file. This will be overwritten
 
+export const getConversation = `query GetConversation($id: ID!) {
+  getConversation(id: $id) {
+    id
+    posts {
+      items {
+        id
+        body
+        createdAt
+      }
+      nextToken
+    }
+    users {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const listConversations = `query ListConversations(
+  $filter: ModelConversationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listConversations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      posts {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+    nextToken
+  }
+}
+`;
 export const getPost = `query GetPost($id: ID!) {
   getPost(id: $id) {
     id
@@ -17,11 +56,11 @@ export const getPost = `query GetPost($id: ID!) {
     createdAt
     conversation {
       id
-      contents {
+      posts {
         nextToken
       }
-      conversations {
-        id
+      users {
+        nextToken
       }
     }
   }
@@ -51,91 +90,12 @@ export const listPosts = `query ListPosts(
   }
 }
 `;
-export const getConvoPosts = `query GetConvoPosts($id: ID!) {
-  getConvoPosts(id: $id) {
-    id
-    contents {
-      items {
-        id
-        body
-        createdAt
-      }
-      nextToken
-    }
-    conversations {
-      id
-      contents {
-        nextToken
-      }
-      users {
-        nextToken
-      }
-    }
-  }
-}
-`;
-export const listConvoPostss = `query ListConvoPostss(
-  $filter: ModelConvoPostsFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listConvoPostss(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      contents {
-        nextToken
-      }
-      conversations {
-        id
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const getConversation = `query GetConversation($id: ID!) {
-  getConversation(id: $id) {
-    id
-    contents {
-      items {
-        id
-      }
-      nextToken
-    }
-    users {
-      items {
-        id
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const listConversations = `query ListConversations(
-  $filter: ModelConversationFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listConversations(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      contents {
-        nextToken
-      }
-      users {
-        nextToken
-      }
-    }
-    nextToken
-  }
-}
-`;
 export const getUserConvo = `query GetUserConvo($id: ID!) {
   getUserConvo(id: $id) {
     id
     conversation {
       id
-      contents {
+      posts {
         nextToken
       }
       users {
