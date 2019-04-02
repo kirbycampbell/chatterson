@@ -18,32 +18,30 @@ export const ChatBox = props => {
     }
   }, [props.selectedUser]);
   useEffect(() => {
-    if (props.selectedUser) {
-      subscriptionMsgs();
-      //findConvo();
-      //queryMsgs();
-    }
+    //subscriptionMsgs();
+    //findConvo();
+    //queryMsgs();
   }, []);
 
   // subscriptionMsgs sets a subscription to newMsgs, and updates conversation array.
-  const subscriptionMsgs = () => {
-    API.graphql(
-      graphqlOperation(subscriptions.onCreatePost, {
-        conversation: { id: convoId }
-      })
-    ).subscribe({
-      next: newMsgData => {
-        console.log(newMsgData);
-        // newMsg breaks db return down to normal data
-        const newMsg = newMsgData.value.data.onCreatePost;
-        // setConversation using prevState is done like this
-        setConversation(prevConversation => {
-          const updatedConvo = [...prevConversation, newMsg];
-          return updatedConvo;
-        });
-      }
-    });
-  };
+  // const subscriptionMsgs = () => {
+  //   API.graphql(
+  //     graphqlOperation(subscriptions.onCreatePost, {
+  //       conversation: { id: convoId }
+  //     })
+  //   ).subscribe({
+  //     next: newMsgData => {
+  //       console.log(newMsgData.value.data.onCreatePost);
+  //       // newMsg breaks db return down to normal data
+  //       const newMsg = newMsgData.value.data.onCreatePost;
+  //       // setConversation using prevState is done like this
+  //       setConversation(prevConversation => {
+  //         const updatedConvo = [...prevConversation, newMsg];
+  //         return updatedConvo;
+  //       });
+  //     }
+  //   });
+  // };
 
   const editMsg = id => {
     console.log(id);
@@ -61,7 +59,9 @@ export const ChatBox = props => {
     );
     // Filters through the User's Convos
     const filteredConvos = myConvos.data.getUser.conversations.items.filter(
-      el => el.id === props.selectedUser + props.user.id
+      el =>
+        el.id === props.selectedUser + props.user.id ||
+        el.id === props.user.id + props.selectedUser
     );
     // If a convo is found call getUserConvo
     if (filteredConvos.length > 0) {
@@ -71,7 +71,10 @@ export const ChatBox = props => {
       makeConvo();
     }
   };
-  // This gets the UserConvo with id equal to the selected User
+
+  //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  //:::::::::::: Sets the Found Convo in Props & State :::::::::
+  //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   const getUserConvo = async () => {
     const pullConvo = await API.graphql(
       graphqlOperation(queries.getUserConvo, {
@@ -83,20 +86,33 @@ export const ChatBox = props => {
     queryMsgs(pullConvo.data.getUserConvo.conversation.id);
   };
 
+  //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  //:::::::::::: Query Posts within this Conversation  :::::::::
+  //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   // queryMsgs queries the DB for all Msgs
   const queryMsgs = async convo => {
     const queryPosts = await API.graphql(
-      graphqlOperation(queries.listPosts, {
-        conversation: { id: convo },
-        limit: 100
+      graphqlOperation(queries.getConversation, {
+        id: convo
       })
     );
+    // NOTE FOR TOMORROW - THE ABOVE ISN'T ACTUALLY FILTERING FOR THE
+    // SPECIFIC POSTS... THINK OF A NEW WAY.
+    // I TRIED FILTERING THE CONVO, BUT THE POSTS RETURNED AT A LIMIT OF 10.
     console.log(queryPosts);
-    //sortedMsgs puts the newest message at the bottom of the chatBox
-    const sortedMsgs = queryPosts.data.listPosts.items.sort((a, b) => {
-      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-    });
-    setConversation(sortedMsgs);
+    // Puts the newest message at the bottom of the chatBox
+    const sortedMsgs = queryPosts.data.getConversation.posts.items.sort(
+      (a, b) => {
+        return (
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        );
+      }
+    );
+    if (sortedMsgs.length < 1) {
+      setConversation([]);
+    } else {
+      setConversation(sortedMsgs);
+    }
   };
 
   //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

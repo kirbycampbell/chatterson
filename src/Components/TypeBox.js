@@ -16,7 +16,7 @@ export const TypeBox = props => {
   // Send assigns Msg state and sends it to DB....
   const send = async () => {
     // Creates the New Post
-    await API.graphql(
+    const newMSG = await API.graphql(
       graphqlOperation(mutations.createPost, {
         input: {
           body: `${message}`,
@@ -24,6 +24,11 @@ export const TypeBox = props => {
           postConversationId: props.convo,
           createdByUserId: props.user.id
         }
+      })
+    );
+    await API.graphql(
+      graphqlOperation(mutations.updateConversation, {
+        input: { id: props.convo }
       })
     );
     //Resets Message form to empty...
