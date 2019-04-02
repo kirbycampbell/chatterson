@@ -22,7 +22,7 @@ export const TypeBox = props => {
           body: `${message}`,
           createdAt: "",
           postConversationId: props.convo,
-          createdBy: props.user
+          createdByUserId: props.user.id
         }
       })
     );
