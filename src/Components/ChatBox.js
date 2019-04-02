@@ -85,18 +85,17 @@ export const ChatBox = props => {
 
   // queryMsgs queries the DB for all Msgs
   const queryMsgs = async convo => {
-    const convoData = await API.graphql(
-      graphqlOperation(queries.getConversation, { id: convo })
+    const queryPosts = await API.graphql(
+      graphqlOperation(queries.listPosts, {
+        conversation: { id: convo },
+        limit: 100
+      })
     );
-    console.log(convoData);
+    console.log(queryPosts);
     //sortedMsgs puts the newest message at the bottom of the chatBox
-    const sortedMsgs = convoData.data.getConversation.posts.items.sort(
-      (a, b) => {
-        return (
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-        );
-      }
-    );
+    const sortedMsgs = queryPosts.data.listPosts.items.sort((a, b) => {
+      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+    });
     setConversation(sortedMsgs);
   };
 
