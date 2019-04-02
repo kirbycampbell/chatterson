@@ -26,6 +26,11 @@ export const TypeBox = props => {
         }
       })
     );
+    await API.graphql(
+      graphqlOperation(mutations.updateConversation, {
+        input: { id: props.convo }
+      })
+    );
     //Resets Message form to empty...
     setMessage("");
     console.log("Show New Post::: ");

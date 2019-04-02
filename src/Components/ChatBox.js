@@ -12,31 +12,30 @@ export const ChatBox = props => {
   // useEffect Queries for Messages, and subscribes to new Msgs.
   useEffect(() => {
     if (props.selectedUser) {
-      //queryMsgs();
       //subscriptionMsgs();
       findConvo();
+      //queryMsgs();
     }
   }, [props.selectedUser]);
-
-  // queryMsgs queries the DB for all Msgs
-  const queryMsgs = async () => {
-    const allMsgs = await API.graphql(
-      graphqlOperation(queries.listPosts, { limit: 100 })
-    );
-    // sortedMsgs puts the newest message at the bottom of the chatBox
-    const sortedMsgs = allMsgs.data.listPosts.items.sort((a, b) => {
-      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-    });
-    setConversation(sortedMsgs);
-  };
+  useEffect(() => {
+    if (props.selectedUser) {
+      subscriptionMsgs();
+      //findConvo();
+      //queryMsgs();
+    }
+  }, []);
 
   // subscriptionMsgs sets a subscription to newMsgs, and updates conversation array.
   const subscriptionMsgs = () => {
-    API.graphql(graphqlOperation(subscriptions.onCreatePost)).subscribe({
+    API.graphql(
+      graphqlOperation(subscriptions.onCreatePost, {
+        conversation: { id: convoId }
+      })
+    ).subscribe({
       next: newMsgData => {
+        console.log(newMsgData);
         // newMsg breaks db return down to normal data
         const newMsg = newMsgData.value.data.onCreatePost;
-
         // setConversation using prevState is done like this
         setConversation(prevConversation => {
           const updatedConvo = [...prevConversation, newMsg];
@@ -81,6 +80,24 @@ export const ChatBox = props => {
     );
     setConvoId(pullConvo.data.getUserConvo.conversation.id);
     props.convoSelection(pullConvo.data.getUserConvo.conversation.id);
+    queryMsgs(pullConvo.data.getUserConvo.conversation.id);
+  };
+
+  // queryMsgs queries the DB for all Msgs
+  const queryMsgs = async convo => {
+    const convoData = await API.graphql(
+      graphqlOperation(queries.getConversation, { id: convo })
+    );
+    console.log(convoData);
+    //sortedMsgs puts the newest message at the bottom of the chatBox
+    const sortedMsgs = convoData.data.getConversation.posts.items.sort(
+      (a, b) => {
+        return (
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        );
+      }
+    );
+    setConversation(sortedMsgs);
   };
 
   //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
