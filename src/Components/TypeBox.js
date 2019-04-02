@@ -21,7 +21,8 @@ export const TypeBox = props => {
         input: {
           body: `${message}`,
           createdAt: "",
-          postConversationId: props.convo
+          postConversationId: props.convo,
+          createdBy: props.user
         }
       })
     );
@@ -30,11 +31,6 @@ export const TypeBox = props => {
     console.log("Show New Post::: ");
     console.log(newMSG);
   };
-
-  // TOMORROW:
-  // Try Adjusting the GraphQL schema even further.
-  // Maybe a join table isn't needed for posts...
-  // A Post only needs one Convo, a Convo needs many Posts.
 
   const showConvo = async () => {
     const convoo = await API.graphql(

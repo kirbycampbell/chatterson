@@ -7,7 +7,7 @@ type Conversation @model {
 type Post @model {
   id: ID!
   body: String!
-  createdBy: User
+  createdByUserId: String!
   createdAt: String!
   conversation: Conversation @connection(name: "ConvoPosts")
 }

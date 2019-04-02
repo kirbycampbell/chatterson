@@ -42,9 +42,7 @@ const App = () => {
     }
   }, 1000);
 
-  // TODO:::::::::::::::::::::::::::::
-  // Set Convo will be for connecting the logged in user-
-  // to the chat window of the user id chosen.
+  // Selected User will be placed in state
   const setConvo = id => {
     setselectedUser(id);
   };

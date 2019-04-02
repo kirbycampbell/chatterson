@@ -8,6 +8,7 @@ export const onCreateConversation = `subscription OnCreateConversation {
       items {
         id
         body
+        createdByUserId
         createdAt
       }
       nextToken
@@ -28,6 +29,7 @@ export const onUpdateConversation = `subscription OnUpdateConversation {
       items {
         id
         body
+        createdByUserId
         createdAt
       }
       nextToken
@@ -48,6 +50,7 @@ export const onDeleteConversation = `subscription OnDeleteConversation {
       items {
         id
         body
+        createdByUserId
         createdAt
       }
       nextToken
@@ -65,15 +68,7 @@ export const onCreatePost = `subscription OnCreatePost {
   onCreatePost {
     id
     body
-    createdBy {
-      id
-      name
-      password
-      createdAt
-      conversations {
-        nextToken
-      }
-    }
+    createdByUserId
     createdAt
     conversation {
       id
@@ -91,15 +86,7 @@ export const onUpdatePost = `subscription OnUpdatePost {
   onUpdatePost {
     id
     body
-    createdBy {
-      id
-      name
-      password
-      createdAt
-      conversations {
-        nextToken
-      }
-    }
+    createdByUserId
     createdAt
     conversation {
       id
@@ -117,15 +104,7 @@ export const onDeletePost = `subscription OnDeletePost {
   onDeletePost {
     id
     body
-    createdBy {
-      id
-      name
-      password
-      createdAt
-      conversations {
-        nextToken
-      }
-    }
+    createdByUserId
     createdAt
     conversation {
       id
