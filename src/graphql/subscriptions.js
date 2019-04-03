@@ -10,6 +10,7 @@ export const onCreateConversation = `subscription OnCreateConversation {
         body
         createdByUserId
         createdAt
+        convo
       }
       nextToken
     }
@@ -31,6 +32,7 @@ export const onUpdateConversation = `subscription OnUpdateConversation {
         body
         createdByUserId
         createdAt
+        convo
       }
       nextToken
     }
@@ -52,6 +54,7 @@ export const onDeleteConversation = `subscription OnDeleteConversation {
         body
         createdByUserId
         createdAt
+        convo
       }
       nextToken
     }
@@ -79,6 +82,7 @@ export const onCreatePost = `subscription OnCreatePost {
         nextToken
       }
     }
+    convo
   }
 }
 `;
@@ -97,6 +101,7 @@ export const onUpdatePost = `subscription OnUpdatePost {
         nextToken
       }
     }
+    convo
   }
 }
 `;
@@ -115,6 +120,7 @@ export const onDeletePost = `subscription OnDeletePost {
         nextToken
       }
     }
+    convo
   }
 }
 `;

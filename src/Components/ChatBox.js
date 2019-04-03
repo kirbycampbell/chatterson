@@ -92,28 +92,16 @@ export const ChatBox = props => {
   // queryMsgs queries the DB for all Msgs
   const queryMsgs = async convo => {
     const queryPosts = await API.graphql(
-      graphqlOperation(queries.getConversation, {
-        id: convo
-      })
-    );
-    const queryM = await API.graphql(
       graphqlOperation(queries.listPosts, {
-        filter: { conversation: { id: convo } }
+        convo: convo,
+        limit: 100
       })
     );
-    console.log(queryM);
-    // NOTE FOR TOMORROW - THE ABOVE ISN'T ACTUALLY FILTERING FOR THE
-    // SPECIFIC POSTS... THINK OF A NEW WAY.
-    // I TRIED FILTERING THE CONVO, BUT THE POSTS RETURNED AT A LIMIT OF 10.
-    ///console.log(queryPosts);
+
     // Puts the newest message at the bottom of the chatBox
-    const sortedMsgs = queryPosts.data.getConversation.posts.items.sort(
-      (a, b) => {
-        return (
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-        );
-      }
-    );
+    const sortedMsgs = queryPosts.data.listPosts.items.sort((a, b) => {
+      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+    });
     if (sortedMsgs.length < 1) {
       setConversation([]);
     } else {

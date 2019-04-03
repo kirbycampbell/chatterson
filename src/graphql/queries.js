@@ -10,6 +10,7 @@ export const getConversation = `query GetConversation($id: ID!) {
         body
         createdByUserId
         createdAt
+        convo
       }
       nextToken
     }
@@ -56,6 +57,7 @@ export const getPost = `query GetPost($id: ID!) {
         nextToken
       }
     }
+    convo
   }
 }
 `;
@@ -73,6 +75,7 @@ export const listPosts = `query ListPosts(
       conversation {
         id
       }
+      convo
     }
     nextToken
   }
