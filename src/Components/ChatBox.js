@@ -18,7 +18,7 @@ export const ChatBox = props => {
     }
   }, [props.selectedUser]);
   useEffect(() => {
-    //subscriptionMsgs();
+    subscriptionMsgs();
     //findConvo();
     //queryMsgs();
   }, []);
@@ -96,7 +96,7 @@ export const ChatBox = props => {
     const queryPosts = await API.graphql(
       graphqlOperation(queries.listPosts, {
         filter: {
-          convo: convoi
+          convo: { eq: convoi }
         },
         limit: 100
       })
