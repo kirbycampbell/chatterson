@@ -24,24 +24,24 @@ export const ChatBox = props => {
   }, []);
 
   // subscriptionMsgs sets a subscription to newMsgs, and updates conversation array.
-  // const subscriptionMsgs = () => {
-  //   API.graphql(
-  //     graphqlOperation(subscriptions.onCreatePost, {
-  //       conversation: { id: convoId }
-  //     })
-  //   ).subscribe({
-  //     next: newMsgData => {
-  //       console.log(newMsgData.value.data.onCreatePost);
-  //       // newMsg breaks db return down to normal data
-  //       const newMsg = newMsgData.value.data.onCreatePost;
-  //       // setConversation using prevState is done like this
-  //       setConversation(prevConversation => {
-  //         const updatedConvo = [...prevConversation, newMsg];
-  //         return updatedConvo;
-  //       });
-  //     }
-  //   });
-  // };
+  const subscriptionMsgs = () => {
+    API.graphql(
+      graphqlOperation(subscriptions.onCreatePost, {
+        convo: convoId
+      })
+    ).subscribe({
+      next: newMsgData => {
+        console.log(newMsgData.value.data.onCreatePost);
+        // newMsg breaks db return down to normal data
+        const newMsg = newMsgData.value.data.onCreatePost;
+        // setConversation using prevState is done like this
+        setConversation(prevConversation => {
+          const updatedConvo = [...prevConversation, newMsg];
+          return updatedConvo;
+        });
+      }
+    });
+  };
 
   const editMsg = id => {
     console.log(id);
@@ -57,6 +57,7 @@ export const ChatBox = props => {
         id: props.user.id
       })
     );
+    setConvoId(props.selectedUser);
     // Filters through the User's Convos
     const filteredConvos = myConvos.data.getUser.conversations.items.filter(
       el =>
@@ -81,19 +82,22 @@ export const ChatBox = props => {
         id: props.selectedUser + props.user.id
       })
     );
-    setConvoId(pullConvo.data.getUserConvo.conversation.id);
-    props.convoSelection(pullConvo.data.getUserConvo.conversation.id);
-    queryMsgs(pullConvo.data.getUserConvo.conversation.id);
+    let chosenUserId = pullConvo.data.getUserConvo.conversation.id;
+    setConvoId(chosenUserId);
+    props.convoSelection(chosenUserId);
+    queryMsgs(chosenUserId);
   };
 
   //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   //:::::::::::: Query Posts within this Conversation  :::::::::
   //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  // queryMsgs queries the DB for all Msgs
-  const queryMsgs = async convo => {
+  const queryMsgs = async convoi => {
+    // queryMsgs queries the DB for all Msgs
     const queryPosts = await API.graphql(
       graphqlOperation(queries.listPosts, {
-        convo: convo,
+        filter: {
+          convo: convoi
+        },
         limit: 100
       })
     );
