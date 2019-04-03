@@ -57,6 +57,10 @@ export const ChatBox = props => {
         id: props.user.id
       })
     );
+
+    // Next Issue - is a New User - who has convo's created from another user
+    // But hasn't created any themselves, isn't finding the convos when the
+    // new user clicks on a user.
     setConvoId(props.selectedUser);
     // Filters through the User's Convos
     const filteredConvos = myConvos.data.getUser.conversations.items.filter(
