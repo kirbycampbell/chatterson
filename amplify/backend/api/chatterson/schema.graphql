@@ -10,6 +10,7 @@ type Post @model {
   createdByUserId: String!
   createdAt: String!
   conversation: Conversation @connection(name: "ConvoPosts")
+  convo: String!
 }
 
 type UserConvo @model {
