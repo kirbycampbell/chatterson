@@ -32,6 +32,7 @@ export const TypeBox = props => {
         input: { id: props.convo }
       })
     );
+
     //Resets Message form to empty...
     setMessage("");
   };

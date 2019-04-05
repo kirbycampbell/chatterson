@@ -22,20 +22,20 @@ export const ChatBox = props => {
   // subscriptionMsgs sets a subscription to newMsgs, and updates conversation array.
   const subscriptionMsgs = () => {
     API.graphql(
-      graphqlOperation(subscriptions.onCreatePost, {
-        convo: convoId
+      graphqlOperation(subscriptions.onUpdateConversation, {
+        id: props.convo
       })
     ).subscribe({
-      next: newMsgData => {
-        console.log(newMsgData.value.data.onCreatePost);
-        // newMsg breaks db return down to normal data
-        const newMsg = newMsgData.value.data.onCreatePost;
-        // setConversation using prevState is done like this
-        setConversation(prevConversation => {
-          const updatedConvo = [...prevConversation, newMsg];
-          return updatedConvo;
-        });
-      }
+      // next: newMsgData => {
+      //   console.log(newMsgData.value.data.onCreatePost);
+      //   // newMsg breaks db return down to normal data
+      //   const newMsg = newMsgData.value.data.onCreatePost;
+      //   // setConversation using prevState is done like this
+      //   setConversation(prevConversation => {
+      //     const updatedConvo = [...prevConversation, newMsg];
+      //     return updatedConvo;
+      //   });
+      // }
     });
   };
 
@@ -58,8 +58,6 @@ export const ChatBox = props => {
       })
     );
     setConvoId(props.selectedUser);
-    //const convoFound1 = fetchConvos.data.getUserConvo.conversation;
-    //const convoFound2 = fetchConvo2.data.getUserConvo.conversation;
     if (fetchConvos.data.getUserConvo) {
       setConvoId(fetchConvos.data.getUserConvo.conversation.id);
       props.convoSelection(fetchConvos.data.getUserConvo.conversation.id);
