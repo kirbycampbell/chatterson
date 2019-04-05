@@ -23,7 +23,7 @@ export const ChatBox = props => {
   const subscriptionMsgs = () => {
     API.graphql(
       graphqlOperation(subscriptions.onCreatePost, {
-        convo: props.convo
+        convo: convoId
       })
     ).subscribe({
       next: newMsgData => {
