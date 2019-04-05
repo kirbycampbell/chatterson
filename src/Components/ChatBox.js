@@ -12,15 +12,11 @@ export const ChatBox = props => {
   // useEffect Queries for Messages, and subscribes to new Msgs.
   useEffect(() => {
     if (props.selectedUser) {
-      //subscriptionMsgs();
       findConvo();
-      //queryMsgs();
     }
   }, [props.selectedUser]);
   useEffect(() => {
     subscriptionMsgs();
-    //findConvo();
-    //queryMsgs();
   }, []);
 
   // subscriptionMsgs sets a subscription to newMsgs, and updates conversation array.
