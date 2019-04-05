@@ -47,45 +47,30 @@ export const ChatBox = props => {
   //:::::::::::: Search For A Convo With Selected User :::::::::
   //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   const findConvo = async () => {
-    // This gets the Logged in User's Convo List
-    const myConvos = await API.graphql(
-      graphqlOperation(queries.getUser, {
-        id: props.user.id
+    const fetchConvos = await API.graphql(
+      graphqlOperation(queries.getUserConvo, {
+        id: props.user.id + props.selectedUser
       })
     );
-
-    // Next Issue - is a New User - who has convo's created from another user
-    // But hasn't created any themselves, isn't finding the convos when the
-    // new user clicks on a user.
-    setConvoId(props.selectedUser);
-    // Filters through the User's Convos
-    const filteredConvos = myConvos.data.getUser.conversations.items.filter(
-      el =>
-        el.id === props.selectedUser + props.user.id ||
-        el.id === props.user.id + props.selectedUser
-    );
-    // If a convo is found call getUserConvo
-    if (filteredConvos.length > 0) {
-      console.log("Found Convo With that User");
-      getUserConvo();
-    } else {
-      makeConvo();
-    }
-  };
-
-  //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  //:::::::::::: Sets the Found Convo in Props & State :::::::::
-  //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  const getUserConvo = async () => {
-    const pullConvo = await API.graphql(
+    const fetchConvo2 = await API.graphql(
       graphqlOperation(queries.getUserConvo, {
         id: props.selectedUser + props.user.id
       })
     );
-    let chosenUserId = pullConvo.data.getUserConvo.conversation.id;
-    setConvoId(chosenUserId);
-    props.convoSelection(chosenUserId);
-    queryMsgs(chosenUserId);
+    setConvoId(props.selectedUser);
+    //const convoFound1 = fetchConvos.data.getUserConvo.conversation;
+    //const convoFound2 = fetchConvo2.data.getUserConvo.conversation;
+    if (fetchConvos.data.getUserConvo) {
+      setConvoId(fetchConvos.data.getUserConvo.conversation.id);
+      props.convoSelection(fetchConvos.data.getUserConvo.conversation.id);
+      queryMsgs(fetchConvos.data.getUserConvo.conversation.id);
+    } else if (fetchConvo2.data.getUserConvo) {
+      setConvoId(fetchConvo2.data.getUserConvo.conversation.id);
+      props.convoSelection(fetchConvo2.data.getUserConvo.conversation.id);
+      queryMsgs(fetchConvo2.data.getUserConvo.conversation.id);
+    } else {
+      makeConvo();
+    }
   };
 
   //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
