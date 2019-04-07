@@ -5,6 +5,26 @@ import * as mutations from "../graphql/mutations";
 import * as subscriptions from "../graphql/subscriptions";
 import "../Css/ChatBox.css";
 
+const onCreatePoss = convoId => `subscription OnCreatePost {
+  onCreatePost(convo: ${convoId}) {
+    id
+    body
+    createdByUserId
+    createdAt
+    conversation {
+      id
+      posts {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+    convo
+  }
+}
+`;
+
 export const ChatBox = props => {
   const [conversation, setConversation] = useState([]);
   const [convoId, setConvoId] = useState(null);
@@ -15,17 +35,11 @@ export const ChatBox = props => {
       findConvo();
     }
   }, [props.selectedUser]);
-  useEffect(() => {
-    subscriptionMsgs();
-  }, []);
 
   // subscriptionMsgs sets a subscription to newMsgs, and updates conversation array.
-  const subscriptionMsgs = () => {
-    API.graphql(
-      graphqlOperation(subscriptions.onCreatePost, {
-        convo: convoId
-      })
-    ).subscribe({
+  const subscriptionMsgs = convoInfo => {
+    console.log(convoInfo);
+    API.graphql(graphqlOperation(onCreatePoss(convoInfo))).subscribe({
       next: newMsgData => {
         console.log(newMsgData);
         // newMsg breaks db return down to normal data
@@ -110,8 +124,10 @@ export const ChatBox = props => {
     });
     if (sortedMsgs.length < 1) {
       setConversation([]);
+      subscriptionMsgs(convoi);
     } else {
       setConversation(sortedMsgs);
+      subscriptionMsgs(convoi);
     }
   };
 
