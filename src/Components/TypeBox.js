@@ -27,6 +27,7 @@ export const TypeBox = props => {
         }
       })
     );
+    console.log(newMSG);
     await API.graphql(
       graphqlOperation(mutations.updateConversation, {
         input: { id: props.convo }

@@ -21,13 +21,19 @@ export const ChatBox = props => {
 
   // subscriptionMsgs sets a subscription to newMsgs, and updates conversation array.
   const subscriptionMsgs = () => {
+    // API.graphql(
+    //   graphqlOperation(subscriptions.onUpdateConversation, {
+    //     id: convoId,
+    //     posts: { sortDirection: { createdAt: "ASC" } }
+    //   })
+    // ).subscribe({
     API.graphql(
-      graphqlOperation(subscriptions.onUpdateConversation, {
-        id: convoId,
-        posts: { sortDirection: { createdAt: "ASC" } }
+      graphqlOperation(subscriptions.onCreatePost, {
+        convo: convoId
       })
     ).subscribe({
       next: newMsgData => {
+        console.log(convoId);
         console.log(newMsgData.value.data.onUpdateConversation.posts.items);
         // newMsg breaks db return down to normal data
         // const newMsg = newMsgData.value.data.onCreatePost;
