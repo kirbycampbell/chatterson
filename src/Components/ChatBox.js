@@ -5,26 +5,6 @@ import * as mutations from "../graphql/mutations";
 import * as subscriptions from "../graphql/subscriptions";
 import "../Css/ChatBox.css";
 
-const onCreatePoss = convoId => `subscription OnCreatePost {
-  onCreatePost(convo: ${convoId}) {
-    id
-    body
-    createdByUserId
-    createdAt
-    conversation {
-      id
-      posts {
-        nextToken
-      }
-      users {
-        nextToken
-      }
-    }
-    convo
-  }
-}
-`;
-
 export const ChatBox = props => {
   const [conversation, setConversation] = useState([]);
   const [convoId, setConvoId] = useState(null);
@@ -38,12 +18,15 @@ export const ChatBox = props => {
 
   // subscriptionMsgs sets a subscription to newMsgs, and updates conversation array.
   const subscriptionMsgs = convoInfo => {
-    console.log(convoInfo);
-    API.graphql(graphqlOperation(onCreatePoss(convoInfo))).subscribe({
+    API.graphql(
+      graphqlOperation(subscriptions.onUpdateConversation, {
+        id: convoId
+      })
+    ).subscribe({
       next: newMsgData => {
-        console.log(newMsgData);
+        console.log(newMsgData.value.data.onUpdateConversation.posts.items);
         // newMsg breaks db return down to normal data
-        const newMsg = newMsgData.value.data.onCreatePost;
+        const newMsg = newMsgData.value.data.onUpdateConversation.posts.items;
         // setConversation using prevState is done like this
         setConversation(prevConversation => {
           const updatedConvo = [...prevConversation, newMsg];
@@ -52,25 +35,6 @@ export const ChatBox = props => {
       }
     });
   };
-  // :::::::::::::::: OPTION ONE ::::::::::::::::::::
-  // API.graphql(
-  //   graphqlOperation(subscriptions.onUpdateConversation, {
-  //     id: convoId
-  //     //        posts: { sortDirection: { createdAt: "ASC" } }
-  //   })
-  // ).subscribe({
-  //   next: newMsgData => {
-  //     console.log(newMsgData.value.data.onUpdateConversation.posts.items);
-  //     // newMsg breaks db return down to normal data
-  //     const newMsg = newMsgData.value.data.onUpdateConversation.posts.items;
-  //     // setConversation using prevState is done like this
-  //     setConversation(prevConversation => {
-  //       const updatedConvo = [...prevConversation, newMsg];
-  //       return updatedConvo;
-  //     });
-  //   }
-  // });
-  // :::::::::::::::: OPTION TWO :::::::::::::::::::::::::::::::
 
   const editMsg = id => {
     console.log(id);
