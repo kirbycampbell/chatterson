@@ -22,6 +22,10 @@ export const ChatBox = props => {
     props.convoSelection(convoId);
   }, [convoId]);
 
+  useEffect(() => {
+    scrollFix();
+  }, [conversation]);
+
   // subscriptionMsgs sets a subscription to newMsgs, and updates conversation array.
   const subscriptionMsgs = convoI => {
     API.graphql(graphqlOperation(subscriptions.onCreatePost)).subscribe({
@@ -37,10 +41,17 @@ export const ChatBox = props => {
         }
       }
     });
+    scrollFix();
   };
 
   const editMsg = id => {
     console.log(id);
+  };
+
+  const scrollFix = () => {
+    document.getElementById("entire-box").scrollTop = document.getElementById(
+      "entire-box"
+    ).scrollHeight;
   };
 
   //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -124,7 +135,7 @@ export const ChatBox = props => {
   };
 
   return (
-    <div className="Chat-Box">
+    <div className="Chat-Box" id="entire-box">
       {props.auth && !loading && (
         <div>
           {conversation.map(convo => {
