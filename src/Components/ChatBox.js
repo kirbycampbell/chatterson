@@ -15,18 +15,19 @@ export const ChatBox = props => {
       findConvo();
     }
   }, [props.selectedUser]);
+  useEffect(() => {
+    subscriptionMsgs();
+    //findConvo();
+    //queryMsgs();
+  }, []);
 
   // subscriptionMsgs sets a subscription to newMsgs, and updates conversation array.
-  const subscriptionMsgs = convoInfo => {
-    API.graphql(
-      graphqlOperation(subscriptions.onUpdateConversation, {
-        id: convoId
-      })
-    ).subscribe({
+  const subscriptionMsgs = () => {
+    API.graphql(graphqlOperation(subscriptions.onCreatePost)).subscribe({
       next: newMsgData => {
-        console.log(newMsgData.value.data.onUpdateConversation.posts.items);
+        console.log(newMsgData.value.data.onCreatePost);
         // newMsg breaks db return down to normal data
-        const newMsg = newMsgData.value.data.onUpdateConversation.posts.items;
+        const newMsg = newMsgData.value.data.onCreatePost;
         // setConversation using prevState is done like this
         setConversation(prevConversation => {
           const updatedConvo = [...prevConversation, newMsg];
