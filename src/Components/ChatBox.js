@@ -12,24 +12,23 @@ export const ChatBox = props => {
   // useEffect Queries for Messages, and subscribes to new Msgs.
   useEffect(() => {
     if (props.selectedUser) {
-      console.log(props.selectedUser);
       findConvo();
     }
   }, [props.selectedUser]);
-  useEffect(() => {
-    subscriptionMsgs();
-    //findConvo();
-    //queryMsgs();
-  }, []);
+  // useEffect(() => {
+  //   subscriptionMsgs();
+  //   //findConvo();
+  //   //queryMsgs();
+  // }, []);
 
   // subscriptionMsgs sets a subscription to newMsgs, and updates conversation array.
-  const subscriptionMsgs = () => {
+  const subscriptionMsgs = convoI => {
     API.graphql(graphqlOperation(subscriptions.onCreatePost)).subscribe({
       next: newMsgData => {
         console.log(newMsgData.value.data.onCreatePost);
         // newMsg breaks db return down to normal data
         const newMsg = newMsgData.value.data.onCreatePost;
-        if (newMsg.convo === props.convo) {
+        if (newMsg.convo === convoI) {
           setConversation(prevConversation => {
             const updatedConvo = [...prevConversation, newMsg];
             return updatedConvo;
@@ -59,13 +58,15 @@ export const ChatBox = props => {
     );
     setConvoId(props.selectedUser);
     if (fetchConvos.data.getUserConvo) {
-      setConvoId(fetchConvos.data.getUserConvo.conversation.id);
+      //setConvoId(fetchConvos.data.getUserConvo.conversation.id);
       props.convoSelection(fetchConvos.data.getUserConvo.conversation.id);
       queryMsgs(fetchConvos.data.getUserConvo.conversation.id);
+      subscriptionMsgs(fetchConvos.data.getUserConvo.conversation.id);
     } else if (fetchConvo2.data.getUserConvo) {
-      setConvoId(fetchConvo2.data.getUserConvo.conversation.id);
+      //setConvoId(fetchConvo2.data.getUserConvo.conversation.id);
       props.convoSelection(fetchConvo2.data.getUserConvo.conversation.id);
       queryMsgs(fetchConvo2.data.getUserConvo.conversation.id);
+      subscriptionMsgs(fetchConvo2.data.getUserConvo.conversation.id);
     } else {
       makeConvo();
     }
