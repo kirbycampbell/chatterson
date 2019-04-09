@@ -8,10 +8,12 @@ import "../Css/ChatBox.css";
 export const ChatBox = props => {
   const [conversation, setConversation] = useState([]);
   const [convoId, setConvoId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // useEffect Queries for Messages, and subscribes to new Msgs.
   useEffect(() => {
     if (props.selectedUser) {
+      setLoading(true);
       findConvo();
     }
   }, [props.selectedUser]);
@@ -86,8 +88,10 @@ export const ChatBox = props => {
     });
     if (sortedMsgs.length < 1) {
       setConversation([]);
+      setLoading(false);
     } else {
       setConversation(sortedMsgs);
+      setLoading(false);
     }
     subscriptionMsgs(convoi);
   };
@@ -103,7 +107,6 @@ export const ChatBox = props => {
       })
     );
     setConvoId(convo.data.createConversation.id);
-    console.log("convo Created!");
     // New UserConvo Creation
     let userConvo = await API.graphql(
       graphqlOperation(mutations.createUserConvo, {
@@ -116,12 +119,13 @@ export const ChatBox = props => {
     );
     // Sets Convo.id to App.js State
     props.convoSelection(convo.data.createConversation.id);
-    console.log("User Convo Created w/ UserConvo.id set to selected User's Id");
+    subscriptionMsgs(convo.data.createConversation.id);
+    setLoading(false);
   };
 
   return (
     <div className="Chat-Box">
-      {props.auth && (
+      {props.auth && !loading && (
         <div>
           {conversation.map(convo => {
             if (convo.createdByUserId === props.selectedUser) {
@@ -149,6 +153,7 @@ export const ChatBox = props => {
         </div>
       )}
       <div style={{ float: "left", clear: "both" }} />
+      {loading && <div className="loading">Loading...</div>}
     </div>
   );
 };

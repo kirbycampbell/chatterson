@@ -58,7 +58,6 @@ const App = () => {
   // ::::::::::::::::: Set Selected Convo ::::::
   const convoSelection = convoId => {
     setSelectedConvo(convoId);
-    console.log(convoId);
   };
 
   //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
