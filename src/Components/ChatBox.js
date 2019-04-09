@@ -124,15 +124,27 @@ export const ChatBox = props => {
       {props.auth && (
         <div>
           {conversation.map(convo => {
-            return (
-              <p
-                onClick={() => editMsg(convo.id)}
-                className="text-boxes"
-                key={convo.id}
-              >
-                {convo.body}
-              </p>
-            );
+            if (convo.createdByUserId === props.selectedUser) {
+              return (
+                <p
+                  onClick={() => editMsg(convo.id)}
+                  className="text-boxes-user"
+                  key={convo.id}
+                >
+                  {convo.body}
+                </p>
+              );
+            } else {
+              return (
+                <p
+                  onClick={() => editMsg(convo.id)}
+                  className="text-boxes"
+                  key={convo.id}
+                >
+                  {convo.body}
+                </p>
+              );
+            }
           })}
         </div>
       )}
