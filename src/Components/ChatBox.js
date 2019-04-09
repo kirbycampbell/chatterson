@@ -12,6 +12,7 @@ export const ChatBox = props => {
   // useEffect Queries for Messages, and subscribes to new Msgs.
   useEffect(() => {
     if (props.selectedUser) {
+      console.log(props.selectedUser);
       findConvo();
     }
   }, [props.selectedUser]);
@@ -28,11 +29,12 @@ export const ChatBox = props => {
         console.log(newMsgData.value.data.onCreatePost);
         // newMsg breaks db return down to normal data
         const newMsg = newMsgData.value.data.onCreatePost;
-        // setConversation using prevState is done like this
-        setConversation(prevConversation => {
-          const updatedConvo = [...prevConversation, newMsg];
-          return updatedConvo;
-        });
+        if (newMsg.convo === props.convo) {
+          setConversation(prevConversation => {
+            const updatedConvo = [...prevConversation, newMsg];
+            return updatedConvo;
+          });
+        }
       }
     });
   };
@@ -89,10 +91,8 @@ export const ChatBox = props => {
     });
     if (sortedMsgs.length < 1) {
       setConversation([]);
-      subscriptionMsgs(convoi);
     } else {
       setConversation(sortedMsgs);
-      subscriptionMsgs(convoi);
     }
   };
 
