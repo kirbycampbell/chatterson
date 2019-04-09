@@ -150,7 +150,7 @@ const App = () => {
         convoSelection={convoSelection}
         convo={selectedConvo}
       />
-      <FriendBox setConvo={setConvo} auth={auth} />
+      <FriendBox setConvo={setConvo} auth={auth} selectedUser={selectedUser} />
       <TypeBox convo={selectedConvo} user={user} />
     </div>
   );

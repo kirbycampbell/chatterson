@@ -16,7 +16,7 @@ export const FriendBox = props => {
   // Queries DB for users.
   const queryUsers = async () => {
     const allUsers = await API.graphql(
-      graphqlOperation(queries.listUsers, { limit: 10 })
+      graphqlOperation(queries.listUsers, { limit: 25 })
     );
     setUsers(allUsers.data.listUsers.items);
   };
@@ -38,16 +38,31 @@ export const FriendBox = props => {
     <div className="Friend-Box">
       {props.auth && (
         <div>
-          {users.map(user => (
-            <div
-              className="usr-btn friend"
-              onClick={() => props.setConvo(user.id)}
-              key={user.id}
-              value={user.id}
-            >
-              {user.name}
-            </div>
-          ))}
+          {users.map(user => {
+            if (props.selectedUser === user.id) {
+              return (
+                <div
+                  className="usr-btn chosen"
+                  onClick={() => props.setConvo(user.id)}
+                  key={user.id}
+                  value={user.id}
+                >
+                  {user.name}
+                </div>
+              );
+            } else {
+              return (
+                <div
+                  className="usr-btn friend"
+                  onClick={() => props.setConvo(user.id)}
+                  key={user.id}
+                  value={user.id}
+                >
+                  {user.name}
+                </div>
+              );
+            }
+          })}
         </div>
       )}
     </div>

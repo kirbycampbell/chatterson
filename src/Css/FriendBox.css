@@ -20,3 +20,12 @@
 .usr-btn {
   cursor: pointer;
 }
+
+.chosen {
+  width: 94%;
+  border: 2px solid rgba(0, 0, 0, 0.438);
+  height: 3%;
+  background: rgba(100, 194, 197, 0.664);
+  padding: 5px;
+  color: white;
+}
