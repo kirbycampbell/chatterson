@@ -18,8 +18,6 @@ export const ChatBox = props => {
 
   useEffect(() => {
     props.convoSelection(convoId);
-    queryMsgs(convoId);
-    subscriptionMsgs(convoId);
   }, [convoId]);
 
   // subscriptionMsgs sets a subscription to newMsgs, and updates conversation array.
@@ -59,8 +57,10 @@ export const ChatBox = props => {
     );
     if (fetchConvos.data.getUserConvo) {
       setConvoId(fetchConvos.data.getUserConvo.conversation.id);
+      queryMsgs(fetchConvos.data.getUserConvo.conversation.id);
     } else if (fetchConvo2.data.getUserConvo) {
       setConvoId(fetchConvo2.data.getUserConvo.conversation.id);
+      queryMsgs(fetchConvo2.data.getUserConvo.conversation.id);
     } else {
       makeConvo();
     }
@@ -89,6 +89,7 @@ export const ChatBox = props => {
     } else {
       setConversation(sortedMsgs);
     }
+    subscriptionMsgs(convoi);
   };
 
   //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
