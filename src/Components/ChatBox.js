@@ -128,6 +128,7 @@ export const ChatBox = props => {
         }
       })
     );
+    console.log(userConvo);
     // Sets Convo.id to App.js State
     props.convoSelection(convo.data.createConversation.id);
     subscriptionMsgs(convo.data.createConversation.id);

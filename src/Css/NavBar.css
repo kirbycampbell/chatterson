@@ -83,3 +83,25 @@
   font-size: 30px;
   z-index: 0;
 }
+
+/* For PHONES */
+@media only screen and (max-width: 700px) {
+  .welcome {
+    display: none;
+  }
+  .logo {
+    display: none;
+  }
+  .NavBar {
+    width: 100%;
+    height: 60px;
+    background: rgba(30, 39, 48, 0.795);
+    overflow: hidden;
+  }
+  .friend-burger {
+    float: left;
+    position: absolute;
+    color: white;
+    font-size: 30px;
+  }
+}

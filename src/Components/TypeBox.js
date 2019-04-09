@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { SendBar } from "./SendBar";
 import { API, graphqlOperation } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
-import * as queries from "../graphql/queries";
 import "../Css/TypeBox.css";
 
 export const TypeBox = props => {
@@ -27,7 +26,7 @@ export const TypeBox = props => {
         }
       })
     );
-
+    console.log(newMSG);
     await API.graphql(
       graphqlOperation(mutations.updateConversation, {
         input: { id: props.convo }
