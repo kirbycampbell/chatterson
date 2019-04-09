@@ -16,6 +16,12 @@ export const ChatBox = props => {
     }
   }, [props.selectedUser]);
 
+  useEffect(() => {
+    props.convoSelection(convoId);
+    queryMsgs(convoId);
+    subscriptionMsgs(convoId);
+  }, [convoId]);
+
   // subscriptionMsgs sets a subscription to newMsgs, and updates conversation array.
   const subscriptionMsgs = convoI => {
     API.graphql(graphqlOperation(subscriptions.onCreatePost)).subscribe({
@@ -51,17 +57,10 @@ export const ChatBox = props => {
         id: props.selectedUser + props.user.id
       })
     );
-    setConvoId(props.selectedUser);
     if (fetchConvos.data.getUserConvo) {
-      //setConvoId(fetchConvos.data.getUserConvo.conversation.id);
-      props.convoSelection(fetchConvos.data.getUserConvo.conversation.id);
-      queryMsgs(fetchConvos.data.getUserConvo.conversation.id);
-      subscriptionMsgs(fetchConvos.data.getUserConvo.conversation.id);
+      setConvoId(fetchConvos.data.getUserConvo.conversation.id);
     } else if (fetchConvo2.data.getUserConvo) {
-      //setConvoId(fetchConvo2.data.getUserConvo.conversation.id);
-      props.convoSelection(fetchConvo2.data.getUserConvo.conversation.id);
-      queryMsgs(fetchConvo2.data.getUserConvo.conversation.id);
-      subscriptionMsgs(fetchConvo2.data.getUserConvo.conversation.id);
+      setConvoId(fetchConvo2.data.getUserConvo.conversation.id);
     } else {
       makeConvo();
     }
