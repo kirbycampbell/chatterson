@@ -15,11 +15,6 @@ export const ChatBox = props => {
       findConvo();
     }
   }, [props.selectedUser]);
-  // useEffect(() => {
-  //   subscriptionMsgs();
-  //   //findConvo();
-  //   //queryMsgs();
-  // }, []);
 
   // subscriptionMsgs sets a subscription to newMsgs, and updates conversation array.
   const subscriptionMsgs = convoI => {
