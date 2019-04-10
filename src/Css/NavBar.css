@@ -85,6 +85,17 @@
   z-index: 0;
 }
 
+.friend-burger {
+  float: left;
+  display: none;
+  margin-left: 1%;
+  cursor: pointer;
+  color: white;
+  position: absolute;
+  display: absolute;
+  font-size: 46px;
+}
+
 /* For PHONES */
 @media only screen and (max-width: 700px) {
   .welcome {
@@ -101,6 +112,7 @@
   }
   .friend-burger {
     float: left;
+    display: grid;
     margin-left: 1%;
     cursor: pointer;
     color: white;
