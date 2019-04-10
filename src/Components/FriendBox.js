@@ -6,12 +6,17 @@ import "../Css/FriendBox.css";
 
 export const FriendBox = props => {
   const [users, setUsers] = useState([]);
+  const [viewSetting, setViewSetting] = useState("Friend-Box");
 
   // On Render queries for users, and subscribes to User Creation.
   useEffect(() => {
     queryUsers();
     subscriptionUser();
   }, []);
+
+  useEffect(() => {
+    friendView();
+  }, [props.friendShow]);
 
   // Queries DB for users.
   const queryUsers = async () => {
@@ -33,9 +38,15 @@ export const FriendBox = props => {
       }
     });
   };
-
+  const friendView = () => {
+    if (props.friendShow) {
+      setViewSetting("Friend-Overlay");
+    } else {
+      setViewSetting("Friend-Box");
+    }
+  };
   return (
-    <div className="Friend-Box">
+    <div className={viewSetting}>
       {props.auth && (
         <div>
           {users.map(user => {

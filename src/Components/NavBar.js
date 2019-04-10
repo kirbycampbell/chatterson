@@ -6,6 +6,9 @@ const NavBar = props => {
   return (
     <div className="NavBar">
       <div className="logo">Chatterson - The App</div>
+      <div className="friend-burger" onClick={props.showFriendsOnPhone}>
+        <i className="fas fa-bars" />
+      </div>
       {props.loginMsg && <div className="login-msg">{props.loginMsg}</div>}
       {!props.loginMsg && (
         <button className="logout-btn" onClick={props.logout}>

@@ -41,4 +41,12 @@
     height: 87%;
     background: rgb(43, 40, 54);
   }
+  .Friend-Overlay {
+    position: absolute;
+
+    width: 100%;
+    margin: auto;
+    height: 50%;
+    z-index: 4;
+  }
 }

@@ -25,6 +25,7 @@ const App = () => {
   const [loginMsgTimer, setLoginMsgTimer] = useState(0);
   const [selectedUser, setselectedUser] = useState(null);
   const [selectedConvo, setSelectedConvo] = useState(null);
+  const [friendShow, setFriendShow] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("userName") && localStorage.getItem("userPw")) {
@@ -58,6 +59,12 @@ const App = () => {
   // ::::::::::::::::: Set Selected Convo ::::::
   const convoSelection = convoId => {
     setSelectedConvo(convoId);
+  };
+
+  // :::::::::::::::: Show Friend list ::::::::::
+
+  const showFriendsOnPhone = () => {
+    setFriendShow(!friendShow);
   };
 
   //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -132,6 +139,7 @@ const App = () => {
         auth={auth}
         user={user}
         logout={logout}
+        showFriendsOnPhone={showFriendsOnPhone}
       />
       <SignUp
         authUser={authUser}
@@ -150,7 +158,12 @@ const App = () => {
         convoSelection={convoSelection}
         convo={selectedConvo}
       />
-      <FriendBox setConvo={setConvo} auth={auth} selectedUser={selectedUser} />
+      <FriendBox
+        setConvo={setConvo}
+        auth={auth}
+        selectedUser={selectedUser}
+        friendShow={friendShow}
+      />
       <TypeBox convo={selectedConvo} user={user} />
     </div>
   );
