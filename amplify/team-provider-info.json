@@ -9,11 +9,6 @@
             "UnauthRoleName": "chatterson-20190329182956-unauthRole",
             "StackName": "chatterson-20190329182956",
             "StackId": "arn:aws:cloudformation:us-west-2:706688031207:stack/chatterson-20190329182956/53e466c0-528b-11e9-bcd0-02c272fa5bd4"
-        },
-        "categories": {
-            "auth": {
-                "cognitoabd71330": {}
-            }
         }
     }
 }

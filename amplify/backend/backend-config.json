@@ -8,16 +8,12 @@
 			}
 		}
 	},
-	"auth": {
-		"cognitoabd71330": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation"
-		}
-	},
+	"auth": {},
 	"hosting": {
 		"S3AndCloudFront": {
 			"service": "S3AndCloudFront",
 			"providerPlugin": "awscloudformation"
 		}
-	}
+	},
+	"storage": {}
 }
